@@ -1,3 +1,13 @@
+const createPageList = () => {
+  const map = new Map();
+
+  window?.siteHeader.pageIdList.pages.forEach((i) => {
+    map.set(`${i.pageId}.js`, `${i.title}.${i.pageId}.js`);
+  });
+
+  return map;
+}
+
 /**
  * @param {string} content
  * @returns {(file: FileSystemFileHandle) => Promise<void>}
@@ -13,21 +23,23 @@ const loadFiles = async () => {
   const createOps = { create: true };
 
   const models = window?.monaco.editor.getModels();
+  const pageMap = createPageList();
 
   if (!Array.isArray(models)) {
     return;
   }
 
-  const root = await window.showDirectoryPicker();
+  const rootDir = await window.showDirectoryPicker();
+  const srcDir = await rootDir.getDirectoryHandle('src', createOps);
 
   const [
     pagesDir,
     publicDir,
     backendDir,
   ] = await Promise.all([
-    root.getDirectoryHandle('pages', createOps),
-    root.getDirectoryHandle('public', createOps),
-    root.getDirectoryHandle('backend', createOps),
+    srcDir.getDirectoryHandle('pages', createOps),
+    srcDir.getDirectoryHandle('public', createOps),
+    srcDir.getDirectoryHandle('backend', createOps),
   ]);
 
   const files = models.map((model) => {
@@ -37,8 +49,14 @@ const loadFiles = async () => {
     const value = model.getValue();
     const handler = createWritable(value);
 
+    if (path === '/public/pages/masterPage.js') {
+      return srcDir.getFileHandle(name, createOps).then(handler);
+    }
+
     if (path.startsWith('/public/pages/')) {
-      return pagesDir.getFileHandle(name, createOps).then(handler)
+      const title = pageMap.has(name) ? pageMap.get(name) : name;
+
+      return pagesDir.getFileHandle(title, createOps).then(handler)
     }
 
     if (path.startsWith('/public/')) {
