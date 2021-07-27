@@ -1,3 +1,7 @@
+/**
+ * @param {string} content
+ * @returns {(file: FileSystemFileHandle) => Promise<void>}
+ */
 const createWritable = (content) => async (file) => {
   const writable = await file.createWritable();
 
@@ -10,7 +14,7 @@ const loadFiles = async () => {
 
   const models = window?.monaco.editor.getModels();
 
-  if (typeof models === 'undefined') {
+  if (!Array.isArray(models)) {
     return;
   }
 
