@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Velo Filesystem",
+  "version": "0.1.0",
+  "description": "",
+  "author": "Alexander Zaytsev",
+  "homepage_url": "https://www.wix.com/velo",
+  "icons": {
+    "16": "icons/velo.png",
+    "48": "icons/velo.png"
+  },
+  "permissions": [
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://editor.wix.com/html/editor/web/*",
+    "https://create.editorx.com/html/editor/web/*"
+  ],
+  "action": {},
+  "content_scripts": [
+    {
+      "matches": [
+        "https://editor.wix.com/html/editor/web/*",
+        "https://create.editorx.com/html/editor/web/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "module.js"
+      ],
+      "matches": [
+        "https://editor.wix.com/*",
+        "https://create.editorx.com/*"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "module": "ESNext",
+    "target": "ES2020",
+    "esModuleInterop": true,
+    "noEmit": true,
+    "moduleResolution": "Node",
+    "importsNotUsedAsValues": "error",
+    "isolatedModules": false,
+    "sourceMap": false,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules/*"
+  ]
+}
