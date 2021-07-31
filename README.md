@@ -2,7 +2,7 @@
 
 [![https://wix.com/velo](https://img.shields.io/badge/Built%20for-Velo%20by%20Wix-3638f4)](https://wix.com/velo)
 
-Chrome extension for managing the virtual file system in [Velo](https://www.wix.com/velo) from [Wix](http://www.wix.com/)
+Chrome extension for managing the virtual file system in [Velo](https://www.wix.com/velo) by [Wix](http://www.wix.com/)
 
 ## TODO:
 
