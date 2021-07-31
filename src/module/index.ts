@@ -1,29 +1,33 @@
-const createPageList = () => {
-  const map = new Map();
+/// <reference types="wicg-file-system-access"/>
 
-  window?.siteHeader.pageIdList.pages.forEach((i) => {
+type TPageIdMap = Map<string, string>;
+
+const createPageIdMap = (): TPageIdMap => {
+  const map: TPageIdMap = new Map();
+
+  window?.siteHeader?.pageIdList.pages.forEach((i) => {
     map.set(`${i.pageId}.js`, `${i.title}.${i.pageId}.js`);
   });
 
   return map;
-}
-
-/**
- * @param {string} content
- * @returns {(file: FileSystemFileHandle) => Promise<void>}
- */
-const createWritable = (content) => async (file) => {
-  const writable = await file.createWritable();
-
-  await writable.write(content);
-  await writable.close();
 };
 
-const loadFiles = async () => {
-  const createOps = { create: true };
+const createWritable = (content: string) => {
+  return async (file: FileSystemFileHandle): Promise<void> => {
+    const writable = await file.createWritable();
 
-  const models = window?.monaco.editor.getModels();
-  const pageMap = createPageList();
+    await writable.write(content);
+    await writable.close();
+  };
+};
+
+export const loadFiles = async (): Promise<void> => {
+  const createOps: FileSystemGetDirectoryOptions = {
+    create: true,
+  };
+
+  const models = window?.monaco?.editor.getModels();
+  const pageIdMap = createPageIdMap();
 
   if (!Array.isArray(models)) {
     return;
@@ -45,7 +49,7 @@ const loadFiles = async () => {
   const files = models.map((model) => {
     const { path } = model.uri;
 
-    const name = path.split('/').pop();
+    const name = path.split('/').pop() ?? '';
     const value = model.getValue();
     const handler = createWritable(value);
 
@@ -54,24 +58,20 @@ const loadFiles = async () => {
     }
 
     if (path.startsWith('/public/pages/')) {
-      const title = pageMap.has(name) ? pageMap.get(name) : name;
+      const title = pageIdMap.has(name) ? pageIdMap.get(name) ?? '' : name;
 
-      return pagesDir.getFileHandle(title, createOps).then(handler)
+      return pagesDir.getFileHandle(title, createOps).then(handler);
     }
 
     if (path.startsWith('/public/')) {
-      return publicDir.getFileHandle(name, createOps).then(handler)
+      return publicDir.getFileHandle(name, createOps).then(handler);
     }
 
     if (path.startsWith('/backend/')) {
-      return backendDir.getFileHandle(name, createOps).then(handler)
+      return backendDir.getFileHandle(name, createOps).then(handler);
     }
   })
     .filter(Boolean);
 
   await Promise.all(files);
 };
-
-window.addEventListener('velo-fs', () => {
-  loadFiles();
-});
