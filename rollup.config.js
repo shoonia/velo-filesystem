@@ -19,7 +19,7 @@ emptyDirSync('./build');
 copySync('./static', './build');
 writeJSONSync('./build/manifest.json', {
   manifest_version: 3,
-  name: pkg.name,
+  name: pkg.title,
   version: pkg.version,
   description: pkg.description,
   author: pkg.author,
