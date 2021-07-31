@@ -18,3 +18,7 @@ Chrome extension for managing the virtual file system in [Velo](https://www.wix.
   - [ ] Synchronization Velo Editor to local file system
   - [ ] Synchronization local file system to Velo Editor
   - [ ] Synchronization parallel between Velo Editor and local file system
+
+## License
+
+[MIT](./LICENSE)

@@ -22,7 +22,7 @@ writeJSONSync('./build/manifest.json', {
   name: pkg.title,
   version: pkg.version,
   description: pkg.description,
-  author: pkg.author,
+  author: pkg.author.name,
   homepage_url: pkg.homepage,
   icons: {
     '16': 'icons/velo.png',
