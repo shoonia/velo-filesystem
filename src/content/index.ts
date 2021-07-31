@@ -1,4 +1,3 @@
-
 /// <reference types="chrome"/>
 
 const script = Object.assign(document.createElement('script'), {

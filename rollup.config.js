@@ -35,7 +35,10 @@ writeJSONSync('./build/manifest.json', {
     'https://editor.wix.com/html/editor/web/*',
     'https://create.editorx.com/html/editor/web/',
   ],
-  action: {},
+  action: {
+    default_popup: 'popup.html',
+    default_icon: 'icons/velo.png',
+  },
   content_scripts: [
     {
       matches: [
