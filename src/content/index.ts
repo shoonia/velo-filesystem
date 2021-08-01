@@ -1,8 +1,8 @@
-/// <reference types="chrome"/>
+import { getURL } from '../chrome';
 
 const script = Object.assign(document.createElement('script'), {
   type: 'module',
-  src: chrome.runtime.getURL('module.js'),
+  src: getURL('module.js'),
   async: true,
 });
 
