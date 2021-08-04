@@ -5,7 +5,7 @@ type TPageIdMap = Map<string, string>;
 const createPageIdMap = (): TPageIdMap => {
   const map: TPageIdMap = new Map();
 
-  window?.siteHeader?.pageIdList.pages.forEach((i) => {
+  window.siteHeader?.pageIdList.pages.forEach((i) => {
     map.set(`${i.pageId}.js`, `${i.title}.${i.pageId}.js`);
   });
 
@@ -26,7 +26,7 @@ export const loadFiles = async (): Promise<void> => {
     create: true,
   };
 
-  const models = window?.monaco?.editor.getModels();
+  const models = window.monaco?.editor.getModels();
   const pageIdMap = createPageIdMap();
 
   if (!Array.isArray(models)) {

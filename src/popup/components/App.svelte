@@ -1,4 +1,11 @@
-<h1>Hello</h1>
+<script lang="ts">
+  import DashboardPage from './DashboardPage.svelte';
+</script>
+
+<main>
+  <DashboardPage />
+</main>
+
 <style>
   :global(*),
   :global(*::before),
@@ -15,5 +22,9 @@
   :global(body) {
     color: #162d3d;
     background-color: #f0f4f7;
+  }
+
+  main {
+    padding: 15px;
   }
 </style>
