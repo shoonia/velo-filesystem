@@ -33,7 +33,7 @@ writeJSONSync('./build/manifest.json', {
   ],
   host_permissions: [
     'https://editor.wix.com/html/editor/web/*',
-    'https://create.editorx.com/html/editor/web/',
+    'https://create.editorx.com/html/editor/web/*',
   ],
   action: {
     default_popup: 'popup.html',
@@ -43,7 +43,7 @@ writeJSONSync('./build/manifest.json', {
     {
       matches: [
         'https://editor.wix.com/html/editor/web/*',
-        'https://create.editorx.com/html/editor/web/',
+        'https://create.editorx.com/html/editor/web/*',
       ],
       js: [
         'content.js',
