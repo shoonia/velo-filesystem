@@ -4,8 +4,8 @@
   import { Events } from '../../transport';
 
   const downloadHandler = () => {
-    sendTabMessage({ type: Events.download });
-  }
+    void sendTabMessage({ type: Events.download });
+  };
 </script>
 
 <ul>
