@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let onClick: EventHandlerNonNull;
+  export let onClick: EventListener;
 </script>
 
 <button

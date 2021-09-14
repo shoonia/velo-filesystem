@@ -3,7 +3,7 @@
   import { sendTabMessage } from '../../chrome';
   import { Events } from '../../transport';
 
-  const downloadHandler = () => {
+  const downloadHandler: EventListener = () => {
     void sendTabMessage({ type: Events.download });
   };
 </script>
