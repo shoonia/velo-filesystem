@@ -1,3 +1,4 @@
+/// <reference types="chrome"/>
 import svelte from 'rollup-plugin-svelte';
 import sveltePreprocess from 'svelte-preprocess';
 import commonjs from '@rollup/plugin-commonjs';
@@ -12,12 +13,12 @@ import pkg from './package.json';
 
 const isProd = !process.env.ROLLUP_WATCH;
 const isDev = !isProd;
+const NODE_ENV = isProd ? 'production' : 'development';
 
-process.env.NODE_ENV = isProd ? 'production' : 'development';
+process.env.NODE_ENV = NODE_ENV;
 
-emptyDirSync('./build');
-copySync('./static', './build');
-writeJSONSync('./build/manifest.json', {
+/** @type {chrome.runtime.ManifestV3} */
+const manifestV3 = {
   manifest_version: 3,
   name: pkg.title,
   version: pkg.version,
@@ -62,7 +63,7 @@ writeJSONSync('./build/manifest.json', {
       ],
     },
   ],
-});
+};
 
 const extensions = [
   '.js',
@@ -89,6 +90,19 @@ const bablePlugin = babel({
   ...babelConfig,
 });
 
+const plugins = [
+  nodeResolve({
+    extensions,
+  }),
+  commonjs(),
+  bablePlugin,
+  isProd && terser(),
+];
+
+emptyDirSync('./build');
+copySync('./static', './build');
+writeJSONSync('./build/manifest.json', manifestV3);
+
 export default [
   {
     input: './src/popup/main.ts',
@@ -107,7 +121,7 @@ export default [
       commonjs(),
       replace({
         preventAssignment: true,
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
       }),
       svelte({
         compilerOptions: {
@@ -134,14 +148,7 @@ export default [
       file: './build/content.js',
       format: 'es',
     },
-    plugins: [
-      nodeResolve({
-        extensions,
-      }),
-      commonjs(),
-      bablePlugin,
-      isProd && terser(),
-    ],
+    plugins,
     watch: {
       clearScreen: false,
     },
@@ -152,14 +159,7 @@ export default [
       file: './build/module.js',
       format: 'es',
     },
-    plugins: [
-      nodeResolve({
-        extensions,
-      }),
-      commonjs(),
-      bablePlugin,
-      isProd && terser(),
-    ],
+    plugins,
     watch: {
       clearScreen: false,
     },
