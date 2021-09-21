@@ -1,5 +1,10 @@
+export const CUSTOM_EVENT = 'velo-filesystem::custom-event';
+
 export const enum PostEvents {
   download = '>_download',
 }
 
-export const CUSTOM_EVENT = 'velo-filesystem::custom-event';
+export interface IMessage {
+  type: PostEvents;
+  detail?: unknown;
+}

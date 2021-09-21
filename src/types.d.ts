@@ -1,3 +1,5 @@
+import type { CUSTOM_EVENT, IMessage } from './transport';
+
 export declare global {
   interface Window {
     monaco?: typeof import('monaco-editor');
@@ -10,5 +12,9 @@ export declare global {
         }[]
       }
     }
+  }
+
+  interface WindowEventMap {
+    [CUSTOM_EVENT]: CustomEvent<IMessage>;
   }
 }

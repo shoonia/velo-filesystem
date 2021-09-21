@@ -1,10 +1,5 @@
 /// <reference types="chrome"/>
-import type { PostEvents } from './transport';
-
-interface IMessage {
-  type: PostEvents;
-  detail?: unknown;
-}
+import type { IMessage } from './transport';
 
 export const getURL = (path: string): string => {
   return chrome.runtime.getURL(path);
