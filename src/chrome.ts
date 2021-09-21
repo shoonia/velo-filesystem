@@ -1,8 +1,8 @@
 /// <reference types="chrome"/>
-import type { Events } from './transport';
+import type { PostEvents } from './transport';
 
 interface IMessage {
-  type: Events;
+  type: PostEvents;
   detail?: unknown;
 }
 

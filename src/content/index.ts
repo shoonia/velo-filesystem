@@ -1,3 +1,4 @@
+import { CUSTOM_EVENT } from '../transport';
 import { getURL, onMessage } from '../chrome';
 import { createElement } from '../util';
 
@@ -9,6 +10,8 @@ const script = createElement('script', {
 
 document.body.append(script);
 
-onMessage((message) => {
-  console.log(message);
+onMessage((detail) => {
+  window.dispatchEvent(
+    new CustomEvent(CUSTOM_EVENT, { detail }),
+  );
 });

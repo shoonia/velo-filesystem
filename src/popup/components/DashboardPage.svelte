@@ -1,10 +1,10 @@
 <script lang="ts">
   import Button from './Button.svelte';
   import { sendTabMessage } from '../../chrome';
-  import { Events } from '../../transport';
+  import { PostEvents } from '../../transport';
 
   const downloadHandler: EventListener = () => {
-    void sendTabMessage({ type: Events.download });
+    void sendTabMessage({ type: PostEvents.download });
   };
 </script>
 
