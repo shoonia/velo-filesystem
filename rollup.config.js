@@ -1,4 +1,3 @@
-/// <reference types="chrome"/>
 import svelte from 'rollup-plugin-svelte';
 import sveltePreprocess from 'svelte-preprocess';
 import commonjs from '@rollup/plugin-commonjs';
@@ -9,61 +8,13 @@ import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import { emptyDirSync, copySync, writeJSONSync } from 'fs-extra';
 
-import pkg from './package.json';
+import { manifest } from './src/manifest';
 
 const isProd = !process.env.ROLLUP_WATCH;
 const isDev = !isProd;
-const NODE_ENV = isProd ? 'production' : 'development';
+const nodeEnv = isProd ? 'production' : 'development';
 
-process.env.NODE_ENV = NODE_ENV;
-
-/** @type {chrome.runtime.ManifestV3} */
-const manifestV3 = {
-  manifest_version: 3,
-  name: pkg.title,
-  version: pkg.version,
-  description: pkg.description,
-  author: pkg.author.name,
-  homepage_url: pkg.homepage,
-  icons: {
-    '16': 'icons/velo.png',
-    '48': 'icons/velo.png',
-  },
-  permissions: [
-    'tabs',
-  ],
-  host_permissions: [
-    'https://editor.wix.com/html/editor/web/*',
-    'https://create.editorx.com/html/editor/web/*',
-  ],
-  action: {
-    default_popup: 'popup.html',
-    default_icon: 'icons/velo.png',
-  },
-  content_scripts: [
-    {
-      matches: [
-        'https://editor.wix.com/html/editor/web/*',
-        'https://create.editorx.com/html/editor/web/*',
-      ],
-      js: [
-        'content.js',
-      ],
-      run_at: 'document_idle',
-    },
-  ],
-  web_accessible_resources: [
-    {
-      resources: [
-        'module.js',
-      ],
-      matches: [
-        'https://editor.wix.com/*',
-        'https://create.editorx.com/*',
-      ],
-    },
-  ],
-};
+process.env.NODE_ENV = nodeEnv;
 
 const extensions = [
   '.js',
@@ -101,7 +52,7 @@ const plugins = [
 
 emptyDirSync('./build');
 copySync('./static', './build');
-writeJSONSync('./build/manifest.json', manifestV3);
+writeJSONSync('./build/manifest.json', manifest);
 
 export default [
   {
@@ -121,7 +72,7 @@ export default [
       commonjs(),
       replace({
         preventAssignment: true,
-        'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+        'process.env.NODE_ENV': JSON.stringify(nodeEnv),
       }),
       svelte({
         compilerOptions: {
