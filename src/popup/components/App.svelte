@@ -1,10 +1,17 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { provideStoreon } from '@storeon/svelte';
 
   import DashboardPage from './DashboardPage.svelte';
   import { store } from '../store';
+  import { sendTabMessage } from '../../chrome';
+  import { PostEvents } from '../../transport';
 
   provideStoreon(store);
+
+  onMount(() => {
+    void sendTabMessage(PostEvents.onmout);
+  });
 </script>
 
 <main>

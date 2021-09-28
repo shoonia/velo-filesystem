@@ -1,4 +1,8 @@
-import type { CUSTOM_EVENT, IMessage } from './transport';
+import type {
+  IMessage,
+  CUSTOM_EVENT_REQUEST,
+  CUSTOM_EVENT_RESPONSE,
+} from './transport';
 
 export declare global {
   interface Window {
@@ -15,6 +19,7 @@ export declare global {
   }
 
   interface WindowEventMap {
-    [CUSTOM_EVENT]: CustomEvent<IMessage>;
+    [CUSTOM_EVENT_REQUEST]: CustomEvent<IMessage>;
+    [CUSTOM_EVENT_RESPONSE]: CustomEvent<IMessage>;
   }
 }

@@ -1,5 +1,9 @@
-import { CUSTOM_EVENT } from '../transport';
-import { getURL, onMessage } from '../chrome';
+import {
+  IMessage,
+  CUSTOM_EVENT_REQUEST,
+  CUSTOM_EVENT_RESPONSE,
+} from '../transport';
+import { getURL, onMessage, sendMessage } from '../chrome';
 import { createElement } from '../util';
 
 const script = createElement('script', {
@@ -10,8 +14,14 @@ const script = createElement('script', {
 
 document.body.append(script);
 
+window.addEventListener(CUSTOM_EVENT_RESPONSE, ({ detail }) => {
+  sendMessage(detail);
+});
+
 onMessage((detail) => {
   window.dispatchEvent(
-    new CustomEvent(CUSTOM_EVENT, { detail }),
+    new CustomEvent<IMessage>(CUSTOM_EVENT_REQUEST, {
+      detail,
+    }),
   );
 });
