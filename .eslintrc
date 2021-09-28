@@ -38,7 +38,8 @@
   },
   "ignorePatterns": [
     "node_modules/*",
-    "rollup.config.js"
+    "rollup.config.js",
+    "zip.js"
   ],
   "rules": {
     "@typescript-eslint/no-unsafe-member-access": "off",

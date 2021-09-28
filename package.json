@@ -9,7 +9,8 @@
     "start": "rollup -c -w",
     "build": "rollup -c",
     "lint": "svelte-check && eslint 'src/**/*.{js,ts,svelte}' && stylelint 'src/**/*.svelte'",
-    "lint:fix": "eslint 'src/**/*.{js,ts,svelte}' --fix && stylelint 'src/**/*.svelte' --fix"
+    "lint:fix": "eslint 'src/**/*.{js,ts,svelte}' --fix && stylelint 'src/**/*.svelte' --fix",
+    "zip": "npm run build && node zip.js"
   },
   "dependencies": {
     "@storeon/svelte": "^1.0.0",
@@ -28,6 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "babel-plugin-const-enum": "^1.1.0",
+    "cross-zip": "^4.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-svelte3": "^3.2.1",
     "fs-extra": "^10.0.0",
