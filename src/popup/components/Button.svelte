@@ -1,10 +1,12 @@
 <script lang="ts">
   export let onClick: EventListener;
+  export let disabled = false;
 </script>
 
 <button
   type="button"
   on:click={onClick}
+  disabled={disabled}
 >
   <slot></slot>
 </button>
@@ -28,5 +30,10 @@
 
   button:hover {
     background: #2224e2;
+  }
+
+  button:disabled {
+    background-color: #b6c1cd;
+    pointer-events: none;
   }
 </style>
