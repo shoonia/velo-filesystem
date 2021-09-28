@@ -77,6 +77,8 @@ export default [
       svelte({
         compilerOptions: {
           dev: isDev,
+          sourcemap: isDev,
+          cssHash: ({ css, hash }) => `s-${hash(css)}`,
         },
         preprocess: sveltePreprocess({
           sourceMap: isDev,
