@@ -1,5 +1,10 @@
 <script lang="ts">
+  import { provideStoreon } from '@storeon/svelte';
+
   import DashboardPage from './DashboardPage.svelte';
+  import { store } from '../store';
+
+  provideStoreon(store);
 </script>
 
 <main>
