@@ -1,15 +1,15 @@
 /// <reference types="wicg-file-system-access"/>
-import { PostEvents, CUSTOM_EVENT_REQUEST } from '../transport';
+import { CUSTOM_EVENT_REQUEST, ReqEvents, ResEvents } from '../transport';
 import { downloadFiles } from './downloadFiles';
-import { dispatchEvent } from './util';
+import { dispatchEvent } from '../util';
 
 window.addEventListener(CUSTOM_EVENT_REQUEST, (event) => {
   switch (event.detail?.type) {
-    case PostEvents.onmout: {
-      return dispatchEvent(PostEvents.content_loaded);
+    case ReqEvents.onmout: {
+      return dispatchEvent(ResEvents.content_loaded);
     }
 
-    case PostEvents.download: {
+    case ReqEvents.download: {
       return void downloadFiles();
     }
   }

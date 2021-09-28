@@ -1,9 +1,9 @@
 import {
-  IMessage,
+  IReqMessage,
   CUSTOM_EVENT_REQUEST,
   CUSTOM_EVENT_RESPONSE,
 } from '../transport';
-import { getURL, onMessage, sendMessage } from '../chrome';
+import { getURL, onMessage, sendResMessage } from '../chrome';
 import { createElement } from '../util';
 
 const script = createElement('script', {
@@ -15,12 +15,12 @@ const script = createElement('script', {
 document.body.append(script);
 
 window.addEventListener(CUSTOM_EVENT_RESPONSE, ({ detail }) => {
-  sendMessage(detail);
+  sendResMessage(detail);
 });
 
-onMessage((detail) => {
+onMessage<IReqMessage>((detail) => {
   window.dispatchEvent(
-    new CustomEvent<IMessage>(CUSTOM_EVENT_REQUEST, {
+    new CustomEvent<IReqMessage>(CUSTOM_EVENT_REQUEST, {
       detail,
     }),
   );

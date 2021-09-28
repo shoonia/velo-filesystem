@@ -3,13 +3,13 @@
 
   import type { IState, IEvents } from '../store/types';
   import Button from './Button.svelte';
-  import { sendTabMessage } from '../../chrome';
-  import { PostEvents } from '../../transport';
+  import { sendReqMessage } from '../../chrome';
+  import { ReqEvents } from '../../transport';
 
   const { isEnable } = useStoreon<IState, IEvents>('isEnable');
 
   const downloadHandler: EventListener = () => {
-    void sendTabMessage(PostEvents.download);
+    void sendReqMessage(ReqEvents.download);
   };
 </script>
 

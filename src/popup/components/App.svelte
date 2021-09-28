@@ -4,13 +4,13 @@
 
   import DashboardPage from './DashboardPage.svelte';
   import { store } from '../store';
-  import { sendTabMessage } from '../../chrome';
-  import { PostEvents } from '../../transport';
+  import { sendReqMessage } from '../../chrome';
+  import { ReqEvents } from '../../transport';
 
   provideStoreon(store);
 
   onMount(() => {
-    void sendTabMessage(PostEvents.onmout);
+    void sendReqMessage(ReqEvents.onmout);
   });
 </script>
 
