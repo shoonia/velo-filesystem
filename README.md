@@ -4,6 +4,8 @@
 
 Chrome extension for managing the virtual file system in [Velo](https://www.wix.com/velo) by [Wix](http://www.wix.com/)
 
+Beta: [Chrome Web Store](https://chrome.google.com/webstore/detail/velo-filesystem/gjmdfafehkeddjhielckakekclainbpn)
+
 ## TODO:
 
 - [ ] File System integration
