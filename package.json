@@ -8,7 +8,7 @@
   "scripts": {
     "start": "rollup -c -w",
     "build": "rollup -c",
-    "lint": "svelte-check && eslint 'src/**/*.{js,ts,svelte}' && stylelint 'src/**/*.svelte'",
+    "lint": "tsc && svelte-check && eslint 'src/**/*.{js,ts,svelte}' && stylelint 'src/**/*.svelte'",
     "lint:fix": "eslint 'src/**/*.{js,ts,svelte}' --fix && stylelint 'src/**/*.svelte' --fix",
     "zip": "npm run build && node zip.js"
   },
