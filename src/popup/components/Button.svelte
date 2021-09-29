@@ -13,19 +13,20 @@
 
 <style>
   button {
-    transition: all 0.2s ease, visibility 0s;
+    transition: all 0.2s ease;
     border-radius: 100px;
     background-color: #3637f5;
     color: #fff;
     font-size: 14px;
     cursor: pointer;
     border: none;
-    display: block;
+    display: flex;
     min-width: 10px;
+    align-items: center;
     min-height: 10px;
     padding: 8px 20px;
     user-select: none;
-    white-space: normal;
+    white-space: nowrap;
   }
 
   button:hover {

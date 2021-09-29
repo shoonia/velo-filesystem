@@ -3,6 +3,7 @@
 
   import type { IState, IEvents } from '../store/types';
   import Button from './Button.svelte';
+  import DownloadIcon from './icons/Download.svelte';
   import { sendReqMessage } from '../../chrome';
   import { ReqEvents } from '../../transport';
 
@@ -19,7 +20,8 @@
       onClick={downloadHandler}
       disabled={!$isEnable}
     >
-      Download
+      <DownloadIcon />
+      &nbsp;Download
     </Button>
   </li>
 </ul>
