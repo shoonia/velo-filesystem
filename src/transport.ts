@@ -1,5 +1,5 @@
-export const CUSTOM_EVENT_REQUEST = 'velo-filesystem::>_request';
-export const CUSTOM_EVENT_RESPONSE = 'velo-filesystem::<_response';
+export const CUSTOM_EVENT_REQUEST = '>_request::velo-filesystem';
+export const CUSTOM_EVENT_RESPONSE = '<_response::velo-filesystem';
 
 export const enum ReqEvents {
   onmout = '>_onmout',
