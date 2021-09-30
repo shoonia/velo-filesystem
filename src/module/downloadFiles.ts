@@ -1,3 +1,5 @@
+import { getModels } from './textModel';
+
 type TPageIdMap = Map<string, string>;
 
 const createPageIdMap = (): TPageIdMap => {
@@ -24,10 +26,10 @@ export const downloadFiles = async (): Promise<void> => {
     create: true,
   };
 
-  const models = window.monaco?.editor.getModels();
+  const models = getModels();
   const pageIdMap = createPageIdMap();
 
-  if (!Array.isArray(models)) {
+  if (models.length < 1) {
     return;
   }
 
