@@ -9,7 +9,7 @@ import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 import { emptyDirSync, copySync, writeJSONSync } from 'fs-extra';
 
-import { manifest } from './src/manifest';
+import { getManifest } from './src/manifest';
 
 const isProd = !process.env.ROLLUP_WATCH;
 const isDev = !isProd;
@@ -57,7 +57,7 @@ const plugins = [
 
 emptyDirSync('./build');
 copySync('./static', './build');
-writeJSONSync('./build/manifest.json', manifest);
+writeJSONSync('./build/manifest.json', getManifest(isProd));
 
 export default [
   {

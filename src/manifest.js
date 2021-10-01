@@ -8,10 +8,14 @@ import {
 
 export { version };
 
-/** @type {Readonly<chrome.runtime.ManifestV3>} */
-export const manifest = {
+/* eslint @typescript-eslint/explicit-module-boundary-types: off */
+/**
+ * @param {boolean} isProd
+ * @returns {Readonly<chrome.runtime.ManifestV3>}
+ */
+export const getManifest = (isProd) => ({
   manifest_version: 3,
-  name: title,
+  name: isProd ? title : `DEV: ${title}`,
   version,
   description,
   author: author.name,
@@ -54,4 +58,4 @@ export const manifest = {
       ],
     },
   ],
-};
+});
