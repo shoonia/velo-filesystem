@@ -15,7 +15,7 @@
   button {
     transition: all 0.2s ease;
     border-radius: 100px;
-    background-color: #3637f5;
+    background-color: var(--BX00);
     color: #fff;
     font-size: 14px;
     cursor: pointer;
@@ -30,11 +30,11 @@
   }
 
   button:hover {
-    background: #2224e2;
+    background: var(--BX10);
   }
 
   button:disabled {
-    background-color: #b6c1cd;
+    background-color: var(--D50);
     pointer-events: none;
   }
 </style>

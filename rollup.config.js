@@ -8,6 +8,7 @@ import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
 import { emptyDirSync, copySync, writeJSONSync } from 'fs-extra';
+import postcssImport from 'postcss-import';
 
 import { getManifest } from './src/manifest';
 
@@ -82,6 +83,11 @@ export default [
         preprocess: sveltePreprocess({
           sourceMap: isDev,
           babel: babelConfig,
+          postcss: {
+            plugins: [
+              postcssImport,
+            ],
+          },
         }),
       }),
       css({

@@ -17,6 +17,6 @@
 
 <style>
   a {
-    color: #3899ec;
+    color: var(--B10);
   }
 </style>

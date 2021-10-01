@@ -23,6 +23,8 @@
 </footer>
 
 <style>
+  @import "../styles/vars.css";
+
   :global(*),
   :global(*::before),
   :global(*::after) {
@@ -36,8 +38,8 @@
   }
 
   :global(body) {
-    color: #162d3d;
-    background-color: #f0f4f7;
+    color: var(--D10);
+    background-color: var(--D70);
   }
 
   main {
@@ -52,7 +54,7 @@
 
   footer {
     padding: 10px;
-    border-top: 1px solid #b6c1cd;
+    border-top: 1px solid var(--D50);
     display: flex;
     align-items: center;
     justify-content: flex-end;
