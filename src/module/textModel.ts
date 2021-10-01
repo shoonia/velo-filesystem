@@ -1,16 +1,26 @@
 import type { editor } from 'monaco-editor';
 
-type TModel = editor.ITextModel;
+interface IExcludeInternalModels {
+  (models: editor.ITextModel[]): editor.ITextModel[]
+}
 
-export const excludeInternalModels = (models: TModel[]): TModel[] => {
-  return models.filter((i) => {
-    const index = i?.uri?.path?.indexOf?.('@');
+interface IGetModels {
+  (): editor.ITextModel[];
+}
+
+interface IPageMap {
+  (): (path: string) => string;
+}
+
+export const excludeInternalModels: IExcludeInternalModels = (models) => {
+  return models.filter((models) => {
+    const index = models.uri.path.indexOf?.('@');
 
     return index === -1;
   });
 };
 
-export const getModels = (): TModel[] => {
+export const getModels: IGetModels = () => {
   const models = window.monaco?.editor?.getModels?.();
 
   if (Array.isArray(models)) {
@@ -18,4 +28,18 @@ export const getModels = (): TModel[] => {
   }
 
   return [];
+};
+
+export const createPageMap: IPageMap = () => {
+  const map = new Map<string, string>();
+
+  window.siteHeader?.pageIdList.pages.forEach((i) => {
+    map.set(`${i.pageId}.js`, `${i.title}.${i.pageId}.js`);
+  });
+
+  return (path: string): string => {
+    const name = path.split('/').pop() ?? '';
+
+    return map.get(name) ?? name;
+  };
 };
