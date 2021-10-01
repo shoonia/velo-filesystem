@@ -36,21 +36,27 @@ const babelConfig = {
   ],
 };
 
-const bablePlugin = babel({
-  babelHelpers: 'bundled',
-  extensions,
-  ...babelConfig,
-});
-
 const plugins = [
   nodeResolve({
     extensions,
+    browser: true,
+    dedupe: [
+      'svelte',
+    ],
+  }),
+  replace({
+    preventAssignment: true,
+    'process.env.NODE_ENV': JSON.stringify(nodeEnv),
   }),
   json({
     preferConst: true,
   }),
+  babel({
+    babelHelpers: 'bundled',
+    extensions,
+    ...babelConfig,
+  }),
   commonjs(),
-  bablePlugin,
   isProd && terser(),
 ]
   .filter(Boolean);
@@ -67,18 +73,6 @@ export default [
       format: 'es',
     },
     plugins: [
-      nodeResolve({
-        extensions,
-        browser: true,
-        dedupe: [
-          'svelte',
-        ],
-      }),
-      commonjs(),
-      replace({
-        preventAssignment: true,
-        'process.env.NODE_ENV': JSON.stringify(nodeEnv),
-      }),
       svelte({
         compilerOptions: {
           dev: isDev,
@@ -93,8 +87,7 @@ export default [
       css({
         output: 'popup.css',
       }),
-      bablePlugin,
-      isProd && terser(),
+      ...plugins,
     ],
     watch: {
       clearScreen: false,

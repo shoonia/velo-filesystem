@@ -18,12 +18,16 @@ export const sendReqMessage = async (
     currentWindow: true,
   });
 
-  if (typeof tab?.id === 'number') {
+  return new Promise((resolve, reject) => {
+    if (typeof tab?.id !== 'number') {
+      return reject();
+    }
+
     chrome.tabs.sendMessage<IReqMessage>(tab.id, {
       type,
       payload,
-    });
-  }
+    }, resolve);
+  });
 };
 
 export const sendResMessage = (message: IResMessage): void => {
@@ -34,4 +38,8 @@ export const onMessage = <T extends IResMessage | IReqMessage>(
   cb: (message?: T) => void,
 ): void => {
   chrome.runtime.onMessage.addListener(cb);
+};
+
+export const to = (url: string): void => {
+  void chrome.tabs.create({ url });
 };

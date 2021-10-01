@@ -55,6 +55,7 @@
     "pre-commit": "npm run lint:fix && npx tsc && npx svelte-check"
   },
   "homepage": "https://github.com/shoonia/velo-filesystem",
+  "discussions": "https://github.com/shoonia/velo-filesystem/discussions",
   "author": {
     "name": "Alexander Zaytsev",
     "email": "alexanderz@wix.com",

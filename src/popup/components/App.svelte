@@ -3,6 +3,7 @@
   import { provideStoreon } from '@storeon/svelte';
 
   import DashboardPage from './DashboardPage.svelte';
+  import Footer from './Footer.svelte';
   import { store } from '../store';
   import { sendReqMessage } from '../../chrome';
   import { ReqEvents } from '../../transport';
@@ -17,6 +18,9 @@
 <main>
   <DashboardPage />
 </main>
+<footer>
+  <Footer />
+</footer>
 
 <style>
   :global(*),
@@ -37,6 +41,20 @@
   }
 
   main {
-    padding: 15px;
+    padding: 10px 5px;
+    gap: 10px;
+    min-width: 250px;
+    min-height: 180px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+
+  footer {
+    padding: 10px;
+    border-top: 1px solid #b6c1cd;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
 </style>

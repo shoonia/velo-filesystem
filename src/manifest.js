@@ -4,9 +4,10 @@ import {
   description,
   author,
   homepage,
+  discussions,
 } from '../package.json';
 
-export { version };
+export { version, discussions };
 
 /* eslint @typescript-eslint/explicit-module-boundary-types: off */
 /**
