@@ -10,6 +10,7 @@ const includePaths = [
   '/backend/test.jsw',
   '/backend/folder/test.jsw',
   '/backend/folder/test.js',
+  '/backend/jobs.config',
   '/public/folder/util.js',
   '/public/pages/sof6z.js',
   '/public/util.js',
