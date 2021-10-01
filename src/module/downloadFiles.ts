@@ -1,79 +1,61 @@
-import { getModels } from './textModel';
-
-type TPageIdMap = Map<string, string>;
-
-const createPageIdMap = (): TPageIdMap => {
-  const map: TPageIdMap = new Map();
-
-  window.siteHeader?.pageIdList.pages.forEach((i) => {
-    map.set(`${i.pageId}.js`, `${i.title}.${i.pageId}.js`);
-  });
-
-  return map;
-};
-
-const createWritable = (content: string) => {
-  return async (file: FileSystemFileHandle): Promise<void> => {
-    const writable = await file.createWritable();
-
-    await writable.write(content);
-    await writable.close();
-  };
-};
+import { version } from '../manifest';
+import { createVeloRc, getRootDir } from './fs';
+import { Directory } from './tree/Directory';
+import { getModels, createPageMap } from './textModel';
 
 export const downloadFiles = async (): Promise<void> => {
-  const createOps: FileSystemGetDirectoryOptions = {
-    create: true,
-  };
+  const [, root] = await getRootDir();
 
-  const models = getModels();
-  const pageIdMap = createPageIdMap();
-
-  if (models.length < 1) {
+  if (root === null) {
     return;
   }
 
-  const rootDir = await window.showDirectoryPicker();
-  const srcDir = await rootDir.getDirectoryHandle('src', createOps);
-
-  const [
-    pagesDir,
-    publicDir,
-    backendDir,
-  ] = await Promise.all([
-    srcDir.getDirectoryHandle('pages', createOps),
-    srcDir.getDirectoryHandle('public', createOps),
-    srcDir.getDirectoryHandle('backend', createOps),
+  const [src] = await Promise.all([
+    root.getDirectoryHandle('src', { create: true }),
+    createVeloRc(root, { version }),
   ]);
 
-  const files = models.map((model) => {
-    const { path } = model.uri;
+  const models = getModels();
+  const getPageName = createPageMap();
+  const srcDir = new Directory({
+    handler: src,
+  });
 
-    const name = path.split('/').pop() ?? '';
+  for (const model of models) {
+    const { path } = model.uri;
     const value = model.getValue();
-    const handler = createWritable(value);
 
     if (path === '/public/pages/masterPage.js') {
-      return srcDir.getFileHandle(name, createOps).then(handler);
+      const file = await srcDir.getChildFile('masterPage.js');
+      await file.write(value);
     }
 
-    if (path.startsWith('/public/pages/')) {
-      const title = pageIdMap.has(name) ? pageIdMap.get(name) ?? '' : name;
-
-      return pagesDir.getFileHandle(title, createOps).then(handler);
+    else if (path.startsWith('/public/pages/')) {
+      const pages = await srcDir.getChildDirectory('pages');
+      const file = await pages.getChildFile(getPageName(path));
+      await file.write(value);
     }
 
-    if (path.startsWith('/public/')) {
-      return publicDir.getFileHandle(name, createOps).then(handler);
+    else if (
+      path.startsWith('/public/') ||
+      path.startsWith('/backend/')
+    ) {
+      const paths = path.slice(1).split('/');
+      const len = paths.length;
+
+      let i = 0;
+      let handler = await srcDir.getChildDirectory(paths[i]);
+
+      while (++i < len) {
+        const key = paths[i];
+
+        if (i + 1 === len) {
+          const file = await handler.getChildFile(key);
+          await file.write(value);
+        } else {
+          handler = await handler.getChildDirectory(key);
+        }
+      }
     }
-
-    if (path.startsWith('/backend/')) {
-      return backendDir.getFileHandle(name, createOps).then(handler);
-    }
-  })
-    .filter(Boolean);
-
-  await Promise.all(files);
-
-  console.info('Done');
+  }
 };
