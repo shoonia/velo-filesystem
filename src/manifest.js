@@ -1,13 +1,21 @@
-import pkg from '../package.json';
+import {
+  title,
+  version,
+  description,
+  author,
+  homepage,
+} from '../package.json';
+
+export { version };
 
 /** @type {Readonly<chrome.runtime.ManifestV3>} */
 export const manifest = {
   manifest_version: 3,
-  name: pkg.title,
-  version: pkg.version,
-  description: pkg.description,
-  author: pkg.author.name,
-  homepage_url: pkg.homepage,
+  name: title,
+  version,
+  description,
+  author: author.name,
+  homepage_url: homepage,
   icons: {
     '16': 'icons/velo.png',
     '48': 'icons/velo.png',
