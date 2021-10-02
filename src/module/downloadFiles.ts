@@ -1,3 +1,4 @@
+import type { File } from './tree/File';
 import { version } from '../manifest';
 import { createVeloRc, getRootDir } from './fs';
 import { Directory } from './tree/Directory';
@@ -21,17 +22,24 @@ export const downloadFiles = async (): Promise<void> => {
     handler: src,
   });
 
+  const tasks: Promise<File>[] = [];
+
   for (const model of models) {
     const { path } = model.uri;
     const value = model.getValue();
 
     if (path === '/public/pages/masterPage.js') {
-      await srcDir.writeChildFile('masterPage.js', value);
+      tasks.push(
+        srcDir.writeChildFile('masterPage.js', value),
+      );
     }
 
     else if (path.startsWith('/public/pages/')) {
       const pages = await srcDir.getChildDirectory('pages');
-      await pages.writeChildFile(getPageName(path), value);
+
+      tasks.push(
+        pages.writeChildFile(getPageName(path), value),
+      );
     }
 
     else if (
@@ -45,14 +53,18 @@ export const downloadFiles = async (): Promise<void> => {
       let handler: Directory = srcDir;
 
       while (i < len) {
-        const key = paths[i++];
+        const name = paths[i++];
 
-        if (i === len) {
-          await handler.writeChildFile(key, value);
+        if (i !== len) {
+          handler = await handler.getChildDirectory(name);
         } else {
-          handler = await handler.getChildDirectory(key);
+          tasks.push(
+            handler.writeChildFile(name, value),
+          );
         }
       }
     }
   }
+
+  await Promise.all(tasks);
 };
