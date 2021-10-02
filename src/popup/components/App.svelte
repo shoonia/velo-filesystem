@@ -3,7 +3,8 @@
   import { provideStoreon } from '@storeon/svelte';
 
   import DashboardPage from './DashboardPage.svelte';
-  import Footer from './Footer.svelte';
+  import Feedback from './Feedback.svelte';
+  import ReleaseNote from './ReleaseNote.svelte';
   import { store } from '../store';
   import { sendReqMessage } from '../../chrome';
   import { ReqEvents } from '../../transport';
@@ -19,7 +20,8 @@
   <DashboardPage />
 </main>
 <footer>
-  <Footer />
+  <ReleaseNote />
+  <Feedback />
 </footer>
 
 <style>
@@ -57,6 +59,6 @@
     border-top: 1px solid var(--D50);
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 </style>

@@ -7,7 +7,7 @@ import {
   discussions,
 } from '../package.json';
 
-export { discussions };
+export { version, discussions };
 
 /* eslint @typescript-eslint/explicit-module-boundary-types: off */
 /**
