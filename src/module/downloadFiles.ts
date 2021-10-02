@@ -1,28 +1,24 @@
 import type { File } from './tree/File';
-import { version } from '../manifest';
-import { createVeloRc, getRootDir } from './fs';
-import { Directory } from './tree/Directory';
+import type { Directory } from './tree/Directory';
+import { getMetaFileValue } from '../manifest';
+import { getRootDir } from './fs';
 import { getModels, createPageMap } from './textModel';
 
 export const downloadFiles = async (): Promise<void> => {
-  const [, root] = await getRootDir();
+  const [, rootDir] = await getRootDir();
 
-  if (root === null) {
+  if (rootDir === null) {
     return;
   }
 
-  const [src] = await Promise.all([
-    root.getDirectoryHandle('src', { create: true }),
-    createVeloRc(root, { version }),
-  ]);
+  const srcDir = await rootDir.appendDirectory('src');
 
   const models = getModels();
   const getPageName = createPageMap();
-  const srcDir = new Directory({
-    handler: src,
-  });
 
-  const tasks: Promise<File>[] = [];
+  const tasks: Promise<File>[] = [
+    rootDir.writeChildFile('velofilesystemrc', getMetaFileValue()),
+  ];
 
   for (const model of models) {
     const { path } = model.uri;

@@ -7,7 +7,7 @@ import {
   discussions,
 } from '../package.json';
 
-export { version, discussions };
+export { discussions };
 
 /* eslint @typescript-eslint/explicit-module-boundary-types: off */
 /**
@@ -60,3 +60,7 @@ export const getManifest = (isProd) => ({
     },
   ],
 });
+
+export const getMetaFileValue = () => {
+  return JSON.stringify({ version }, null, 2);
+};
