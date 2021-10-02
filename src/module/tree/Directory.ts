@@ -58,4 +58,11 @@ export class Directory {
 
     return this.appendFile(name);
   }
+
+  async writeChildFile(name: string, content: string): Promise<File> {
+    const file = await this.getChildFile(name);
+    await file.write(content);
+
+    return file;
+  }
 }
