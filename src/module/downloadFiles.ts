@@ -42,12 +42,12 @@ export const downloadFiles = async (): Promise<void> => {
       const len = paths.length;
 
       let i = 0;
-      let handler = await srcDir.getChildDirectory(paths[i]);
+      let handler: Directory = srcDir;
 
-      while (++i < len) {
-        const key = paths[i];
+      while (i < len) {
+        const key = paths[i++];
 
-        if (i + 1 === len) {
+        if (i === len) {
           await handler.writeChildFile(key, value);
         } else {
           handler = await handler.getChildDirectory(key);
