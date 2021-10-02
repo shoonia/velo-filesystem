@@ -15,6 +15,9 @@ export class Directory {
     this.#handler = handler;
   }
 
+  /**
+   * Creates and return a new child directory
+   */
   async appendDirectory(name: string): Promise<Directory> {
     const handler = await this.#handler.getDirectoryHandle(name, {
       create: true,
@@ -29,6 +32,9 @@ export class Directory {
     return directory;
   }
 
+  /**
+   * Creates and return a new child file
+   */
   async appendFile(name: string): Promise<File> {
     const handler = await this.#handler.getFileHandle(name, {
       create: true,
@@ -43,6 +49,9 @@ export class Directory {
     return file;
   }
 
+  /**
+   * Returns exist child directory or create and return a new one
+   */
   async getChildDirectory(name: string): Promise<Directory> {
     if (this.#directories.has(name)) {
       return this.#directories.get(name) as Directory;
@@ -51,6 +60,9 @@ export class Directory {
     return this.appendDirectory(name);
   }
 
+  /**
+   * Returns exist child file or create and returned a new one
+   */
   async getChildFile(name: string): Promise<File> {
     if (this.#files.has(name)) {
       return this.#files.get(name) as File;
@@ -59,6 +71,10 @@ export class Directory {
     return this.appendFile(name);
   }
 
+  /**
+   * Writes content to child file
+   * if child file does not exist creates a new one
+   */
   async writeChildFile(name: string, content: string): Promise<File> {
     const file = await this.getChildFile(name);
     await file.write(content);

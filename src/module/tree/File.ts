@@ -11,6 +11,9 @@ export class File {
     this.#handler = handler;
   }
 
+  /**
+   * Write the contents of the file
+   */
   async write(content: string): Promise<void> {
     const writable = await this.#handler.createWritable();
 
