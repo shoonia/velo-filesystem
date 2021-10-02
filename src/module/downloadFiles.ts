@@ -26,14 +26,12 @@ export const downloadFiles = async (): Promise<void> => {
     const value = model.getValue();
 
     if (path === '/public/pages/masterPage.js') {
-      const file = await srcDir.getChildFile('masterPage.js');
-      await file.write(value);
+      await srcDir.writeChildFile('masterPage.js', value);
     }
 
     else if (path.startsWith('/public/pages/')) {
       const pages = await srcDir.getChildDirectory('pages');
-      const file = await pages.getChildFile(getPageName(path));
-      await file.write(value);
+      await pages.writeChildFile(getPageName(path), value);
     }
 
     else if (
@@ -50,8 +48,7 @@ export const downloadFiles = async (): Promise<void> => {
         const key = paths[i];
 
         if (i + 1 === len) {
-          const file = await handler.getChildFile(key);
-          await file.write(value);
+          await handler.writeChildFile(key, value);
         } else {
           handler = await handler.getChildDirectory(key);
         }
