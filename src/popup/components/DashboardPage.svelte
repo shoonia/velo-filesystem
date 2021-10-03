@@ -9,11 +9,11 @@
 
   const { isEnable } = useStoreon<IState, IEvents>('isEnable');
 
-  const generateReport: EventListener = () => {
-    // TODO:
+  const getDiagnostics: EventListener = () => {
+    void sendReqMessage(ReqEvents.diagnostics);
   };
 
-  const downloadHandler: EventListener = () => {
+  const downloadFiles: EventListener = () => {
     void sendReqMessage(ReqEvents.download);
   };
 </script>
@@ -21,15 +21,15 @@
 <ul>
   <li>
     <Button
-      onClick={generateReport}
+      onClick={getDiagnostics}
       disabled={!$isEnable}
     >
-      Generate Report
+      Get Diagnostics
     </Button>
   </li>
   <li>
     <Button
-      onClick={downloadHandler}
+      onClick={downloadFiles}
       disabled={!$isEnable}
     >
       <DownloadIcon />

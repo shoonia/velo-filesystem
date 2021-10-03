@@ -3,6 +3,7 @@ export const CUSTOM_EVENT_RESPONSE = '<_response::velo-filesystem';
 
 export const enum ReqEvents {
   onmout = '>_onmout',
+  diagnostics = '>_diagnostics',
   download = '>_download',
 }
 
