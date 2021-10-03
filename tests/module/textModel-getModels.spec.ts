@@ -23,8 +23,8 @@ const excludePaths = [
   '/@velo/google-drive-integration/package.json',
 ];
 
-describe('excludeInternalModels', () => {
-  it('should remove all internal models', () => {
+describe('getModels', () => {
+  it('should return only the user\'s visible models', () => {
     const dropMock = createModelsMock([
       ...includePaths,
       ...excludePaths,
