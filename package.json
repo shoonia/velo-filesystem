@@ -1,7 +1,7 @@
 {
   "name": "velo-filesystem",
   "title": "Velo Filesystem",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Chrome extension for managing the virtual file system in Velo by Wix",
   "main": "src/index.js",
   "type": "module",
