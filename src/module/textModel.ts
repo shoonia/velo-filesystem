@@ -1,19 +1,37 @@
-import type { editor } from 'monaco-editor';
+import type { editor, languages } from 'monaco-editor';
 
 interface IGetModels {
   (): editor.ITextModel[];
+}
+
+interface IGetJsWorker {
+  (): ReturnType<typeof languages.typescript.getJavaScriptWorker> | undefined
 }
 
 interface IPageMap {
   (): (path: string) => string;
 }
 
-export const getModels: IGetModels = () => {
-  const models = window.monaco?.editor.getModels() ?? [];
+const allModels: IGetModels = () => {
+  return window.monaco?.editor.getModels() ?? [];
+};
 
-  return models.filter(
+export const getModels: IGetModels = () => {
+  return allModels().filter(
     (model) => model.uri.path.indexOf('@') === -1,
   );
+};
+
+export const getJsModels: IGetModels = () => {
+  return allModels().filter((model) => {
+    const { path } = model.uri;
+
+    return path.indexOf('@') === -1 && /\.js(w)?$/i.test(path);
+  });
+};
+
+export const getJsWorker: IGetJsWorker = () => {
+  return window.monaco?.languages.typescript.getJavaScriptWorker();
 };
 
 export const createPageMap: IPageMap = () => {
