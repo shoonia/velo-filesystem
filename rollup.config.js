@@ -114,7 +114,7 @@ export default [
     input: './src/module/index.ts',
     output: {
       file: './build/module.js',
-      format: 'es',
+      format: 'iife',
     },
     plugins,
     watch: {
