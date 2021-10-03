@@ -21,10 +21,11 @@
     cursor: pointer;
     border: none;
     display: flex;
-    min-width: 10px;
     align-items: center;
-    min-height: 10px;
-    padding: 8px 20px;
+    justify-content: center;
+    width: 100%;
+    min-height: 35px;
+    padding: 0 25px;
     user-select: none;
     white-space: nowrap;
   }
