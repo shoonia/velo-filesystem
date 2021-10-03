@@ -15,7 +15,7 @@ export const doDiagnostics: IDoDiagnostics = async () => {
   const jsModels = getJsModels();
   const jsWorker = await getJsWorker();
 
-  if (jsModels.length < 0 || typeof jsWorker !== 'function') {
+  if (jsModels.length < 1 || typeof jsWorker !== 'function') {
     return [];
   }
 
