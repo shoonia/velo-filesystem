@@ -1,6 +1,6 @@
 // Fork of @babel/code-frame
 // https://github.com/babel/babel/tree/master/packages/babel-code-frame
-import { codeFrame, codeFrameColumns } from '../../src/module/codeFrame';
+import { codeFrame, getFrame } from '../../src/module/codeFrame';
 
 describe('codeFrame', () => {
   test('basic usage', () => {
@@ -103,14 +103,14 @@ describe('codeFrame', () => {
     );
   });
 
-  test('opts.highlightCode with multiple columns and lines', () => {
+  test('multiple columns and lines', () => {
     const rawLines = [
       'function a(b, c) {',
       '  return b + c;',
       '}',
     ].join('\n');
 
-    const result = codeFrameColumns(
+    const result = getFrame(
       rawLines,
       {
         start: {
@@ -220,7 +220,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      codeFrameColumns(rawLines, { start: { line: 2 } }, { linesAbove: 0 }),
+      getFrame(rawLines, { start: { line: 2 } }, { linesAbove: 0 }),
     ).toEqual(
       [
         '> 2 |   constructor() {',
@@ -240,7 +240,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      codeFrameColumns(rawLines, { start: { line: 2 } }, { linesBelow: 0 }),
+      getFrame(rawLines, { start: { line: 2 } }, { linesBelow: 0 }),
     ).toEqual(['  1 | class Foo {', '> 2 |   constructor() {'].join('\n'));
   });
 
@@ -253,7 +253,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      codeFrameColumns(
+      getFrame(
         rawLines,
         { start: { line: 2 } },
         { linesAbove: 0, linesBelow: 0 },
@@ -264,7 +264,7 @@ describe('codeFrame', () => {
   test('basic usage, new API', () => {
     const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
     expect(
-      codeFrameColumns(rawLines, { start: { line: 2, column: 16 } }),
+      getFrame(rawLines, { start: { line: 2, column: 16 } }),
     ).toEqual(
       [
         '  1 | class Foo {',
@@ -278,7 +278,7 @@ describe('codeFrame', () => {
   test('mark multiple columns', () => {
     const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
     expect(
-      codeFrameColumns(rawLines, {
+      getFrame(rawLines, {
         start: { line: 2, column: 3 },
         end: { line: 2, column: 16 },
       }),
@@ -297,7 +297,7 @@ describe('codeFrame', () => {
       '\n',
     );
     expect(
-      codeFrameColumns(rawLines, {
+      getFrame(rawLines, {
         start: { line: 2, column: 17 },
         end: { line: 3, column: 3 },
       }),
@@ -322,7 +322,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      codeFrameColumns(rawLines, {
+      getFrame(rawLines, {
         start: { line: 2, column: 17 },
         end: { line: 4, column: 3 },
       }),
@@ -349,7 +349,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      codeFrameColumns(rawLines, { start: { line: 2 }, end: { line: 4 } }),
+      getFrame(rawLines, { start: { line: 2 }, end: { line: 4 } }),
     ).toEqual(
       [
         '  1 | class Foo {',
@@ -364,7 +364,7 @@ describe('codeFrame', () => {
   test('opts.message', () => {
     const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
     expect(
-      codeFrameColumns(
+      getFrame(
         rawLines,
         { start: { line: 2, column: 16 } },
         {
@@ -382,9 +382,13 @@ describe('codeFrame', () => {
   });
 
   test('opts.message without column', () => {
-    const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
+    const rawLines = [
+      'class Foo {',
+      '  constructor()', '};',
+    ].join('\n');
+
     expect(
-      codeFrameColumns(
+      getFrame(
         rawLines,
         { start: { line: 2 } },
         {
@@ -410,7 +414,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      codeFrameColumns(
+      getFrame(
         rawLines,
         {
           start: { line: 2, column: 17 },
@@ -443,7 +447,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      codeFrameColumns(
+      getFrame(
         rawLines,
         { start: { line: 2 }, end: { line: 4 } },
         {
