@@ -1,3 +1,5 @@
+// Fork of @babel/code-frame
+// https://github.com/babel/babel/tree/master/packages/babel-code-frame
 import { codeFrame, codeFrameColumns } from '../../src/module/codeFrame';
 
 describe('codeFrame', () => {
@@ -209,91 +211,69 @@ describe('codeFrame', () => {
     );
   });
 
-  // test('opts.linesAbove no lines above', () => {
-  //   const rawLines = [
-  //     'class Foo {',
-  //     '  constructor() {',
-  //     '    console.log(arguments);',
-  //     '  }',
-  //     '};',
-  //   ].join('\n');
-  //   expect(
-  //     codeFrameColumns(rawLines, { start: { line: 2 } }, { linesAbove: 0 }),
-  //   ).toEqual(
-  //     [
-  //       '> 2 |   constructor() {',
-  //       '  3 |     console.log(arguments);',
-  //       '  4 |   }',
-  //       '  5 | };',
-  //     ].join('\n'),
-  //   );
-  // });
+  test('opts.linesAbove no lines above', () => {
+    const rawLines = [
+      'class Foo {',
+      '  constructor() {',
+      '    console.log(arguments);',
+      '  }',
+      '};',
+    ].join('\n');
+    expect(
+      codeFrameColumns(rawLines, { start: { line: 2 } }, { linesAbove: 0 }),
+    ).toEqual(
+      [
+        '> 2 |   constructor() {',
+        '  3 |     console.log(arguments);',
+        '  4 |   }',
+        '  5 | };',
+      ].join('\n'),
+    );
+  });
 
-  // test('opts.linesBelow no lines below', () => {
-  //   const rawLines = [
-  //     'class Foo {',
-  //     '  constructor() {',
-  //     '    console.log(arguments);',
-  //     '  }',
-  //     '};',
-  //   ].join('\n');
-  //   expect(
-  //     codeFrameColumns(rawLines, { start: { line: 2 } }, { linesBelow: 0 }),
-  //   ).toEqual(['  1 | class Foo {', '> 2 |   constructor() {'].join('\n'));
-  // });
+  test('opts.linesBelow no lines below', () => {
+    const rawLines = [
+      'class Foo {',
+      '  constructor() {',
+      '    console.log(arguments);',
+      '  }',
+      '};',
+    ].join('\n');
+    expect(
+      codeFrameColumns(rawLines, { start: { line: 2 } }, { linesBelow: 0 }),
+    ).toEqual(['  1 | class Foo {', '> 2 |   constructor() {'].join('\n'));
+  });
 
-  // test('opts.linesBelow single line', () => {
-  //   const rawLines = [
-  //     'class Foo {',
-  //     '  constructor() {',
-  //     '    console.log(arguments);',
-  //     '  }',
-  //     '};',
-  //   ].join('\n');
-  //   expect(
-  //     codeFrameColumns(
-  //       rawLines,
-  //       { start: { line: 2 } },
-  //       { linesAbove: 0, linesBelow: 0 },
-  //     ),
-  //   ).toEqual(['> 2 |   constructor() {'].join('\n'));
-  // });
+  test('opts.linesBelow single line', () => {
+    const rawLines = [
+      'class Foo {',
+      '  constructor() {',
+      '    console.log(arguments);',
+      '  }',
+      '};',
+    ].join('\n');
+    expect(
+      codeFrameColumns(
+        rawLines,
+        { start: { line: 2 } },
+        { linesAbove: 0, linesBelow: 0 },
+      ),
+    ).toEqual(['> 2 |   constructor() {'].join('\n'));
+  });
 
-  // test('opts.forceColor', () => {
-  //   const marker = chalk.red.bold;
-  //   const gutter = chalk.grey;
-
-  //   const rawLines = ['', '', '', ''].join('\n');
-  //   expect(
-  //     codeFrame(rawLines, 3, null, {
-  //       linesAbove: 1,
-  //       linesBelow: 1,
-  //       forceColor: true,
-  //     }),
-  //   ).toEqual(
-  //     chalk.reset(
-  //       [
-  //         ' ' + gutter(' 2 | '),
-  //         marker('>') + gutter(' 3 | '),
-  //         ' ' + gutter(' 4 | '),
-  //       ].join('\n'),
-  //     ),
-  //   );
-  // });
-
-  // test('basic usage, new API', () => {
-  //   const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
-  //   expect(
-  //     codeFrameColumns(rawLines, { start: { line: 2, column: 16 } }),
-  //   ).toEqual(
-  //     [
-  //       '  1 | class Foo {',
-  //       '> 2 |   constructor()',
-  //       '    |                ^',
-  //       '  3 | };',
-  //     ].join('\n'),
-  //   );
-  // });
+  test('basic usage, new API', () => {
+    const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
+    expect(
+      codeFrameColumns(rawLines, { start: { line: 2, column: 16 } }),
+    ).toEqual(
+      [
+        '  1 | class Foo {',
+        '> 2 |   constructor()',
+        '    |                ^',
+        '  3 | };',
+      ].join('\n'),
+    );
+  });
 
   test('mark multiple columns', () => {
     const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
@@ -360,66 +340,66 @@ describe('codeFrame', () => {
     );
   });
 
-  // test('mark across multiple lines without columns', () => {
-  //   const rawLines = [
-  //     'class Foo {',
-  //     '  constructor() {',
-  //     '    console.log(arguments);',
-  //     '  }',
-  //     '};',
-  //   ].join('\n');
-  //   expect(
-  //     codeFrameColumns(rawLines, { start: { line: 2 }, end: { line: 4 } }),
-  //   ).toEqual(
-  //     [
-  //       '  1 | class Foo {',
-  //       '> 2 |   constructor() {',
-  //       '> 3 |     console.log(arguments);',
-  //       '> 4 |   }',
-  //       '  5 | };',
-  //     ].join('\n'),
-  //   );
-  // });
+  test('mark across multiple lines without columns', () => {
+    const rawLines = [
+      'class Foo {',
+      '  constructor() {',
+      '    console.log(arguments);',
+      '  }',
+      '};',
+    ].join('\n');
+    expect(
+      codeFrameColumns(rawLines, { start: { line: 2 }, end: { line: 4 } }),
+    ).toEqual(
+      [
+        '  1 | class Foo {',
+        '> 2 |   constructor() {',
+        '> 3 |     console.log(arguments);',
+        '> 4 |   }',
+        '  5 | };',
+      ].join('\n'),
+    );
+  });
 
-  // test('opts.message', () => {
-  //   const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
-  //   expect(
-  //     codeFrameColumns(
-  //       rawLines,
-  //       { start: { line: 2, column: 16 } },
-  //       {
-  //         message: 'Missing {',
-  //       },
-  //     ),
-  //   ).toEqual(
-  //     [
-  //       '  1 | class Foo {',
-  //       '> 2 |   constructor()',
-  //       '    |                ^ Missing {',
-  //       '  3 | };',
-  //     ].join('\n'),
-  //   );
-  // });
+  test('opts.message', () => {
+    const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
+    expect(
+      codeFrameColumns(
+        rawLines,
+        { start: { line: 2, column: 16 } },
+        {
+          message: 'Missing {',
+        },
+      ),
+    ).toEqual(
+      [
+        '  1 | class Foo {',
+        '> 2 |   constructor()',
+        '    |                ^ Missing {',
+        '  3 | };',
+      ].join('\n'),
+    );
+  });
 
-  // test('opts.message without column', () => {
-  //   const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
-  //   expect(
-  //     codeFrameColumns(
-  //       rawLines,
-  //       { start: { line: 2 } },
-  //       {
-  //         message: 'Missing {',
-  //       },
-  //     ),
-  //   ).toEqual(
-  //     [
-  //       '  Missing {',
-  //       '  1 | class Foo {',
-  //       '> 2 |   constructor()',
-  //       '  3 | };',
-  //     ].join('\n'),
-  //   );
-  // });
+  test('opts.message without column', () => {
+    const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
+    expect(
+      codeFrameColumns(
+        rawLines,
+        { start: { line: 2 } },
+        {
+          message: 'Missing {',
+        },
+      ),
+    ).toEqual(
+      [
+        '  Missing {',
+        '  1 | class Foo {',
+        '> 2 |   constructor()',
+        '  3 | };',
+      ].join('\n'),
+    );
+  });
 
   test('opts.message with multiple lines', () => {
     const rawLines = [
@@ -454,31 +434,31 @@ describe('codeFrame', () => {
     );
   });
 
-  // test('opts.message with multiple lines without columns', () => {
-  //   const rawLines = [
-  //     'class Foo {',
-  //     '  constructor() {',
-  //     '    console.log(arguments);',
-  //     '  }',
-  //     '};',
-  //   ].join('\n');
-  //   expect(
-  //     codeFrameColumns(
-  //       rawLines,
-  //       { start: { line: 2 }, end: { line: 4 } },
-  //       {
-  //         message: 'something about the constructor body',
-  //       },
-  //     ),
-  //   ).toEqual(
-  //     [
-  //       '  something about the constructor body',
-  //       '  1 | class Foo {',
-  //       '> 2 |   constructor() {',
-  //       '> 3 |     console.log(arguments);',
-  //       '> 4 |   }',
-  //       '  5 | };',
-  //     ].join('\n'),
-  //   );
-  // });
+  test('opts.message with multiple lines without columns', () => {
+    const rawLines = [
+      'class Foo {',
+      '  constructor() {',
+      '    console.log(arguments);',
+      '  }',
+      '};',
+    ].join('\n');
+    expect(
+      codeFrameColumns(
+        rawLines,
+        { start: { line: 2 }, end: { line: 4 } },
+        {
+          message: 'something about the constructor body',
+        },
+      ),
+    ).toEqual(
+      [
+        '  something about the constructor body',
+        '  1 | class Foo {',
+        '> 2 |   constructor() {',
+        '> 3 |     console.log(arguments);',
+        '> 4 |   }',
+        '  5 | };',
+      ].join('\n'),
+    );
+  });
 });

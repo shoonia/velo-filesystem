@@ -1,33 +1,28 @@
 interface Location {
-  column: number,
-  line: number,
+  column?: number,
+  line?: number,
 }
 
 interface NodeLocation {
-  end: Location,
   start: Location,
-}
-
-const mock = (s: string): string => s;
-function getDefs() {
-  return {
-    gutter: mock,
-    marker: mock,
-    message: mock,
-  };
+  end?: Location,
 }
 
 const NEWLINE = /\r\n|[\n\r\u2028\u2029]/;
 
-function getMarkerLines(
+const getMarkerLines = (
   loc: NodeLocation,
   source: Array<string>,
   opts?: Record<string, string | number>,
-): { start: number, end: number, markerLines: Record<string, number[] | boolean> } {
+): { start: number, end: number, markerLines: Record<string, number[] | boolean> } => {
 
-  const startLoc: Location = loc.start;
+  const startLoc = {
+    column: 0,
+    line: -1,
+    ...loc.start,
+  };
 
-  const endLoc: Location = {
+  const endLoc = {
     ...startLoc,
     ...loc.end,
   };
@@ -83,19 +78,13 @@ function getMarkerLines(
   }
 
   return { start, end, markerLines };
-}
+};
 
 export function codeFrameColumns(
   rawLines: string,
   loc: NodeLocation,
   opts?: Record<string, string | number>,
 ): string {
-  const defs = getDefs();
-  const maybeHighlight = (
-    chalkFn: (s: string) => string,
-    s: string,
-  ): string => chalkFn(s);
-
   const lines = rawLines.split(NEWLINE);
   const { start, end, markerLines } = getMarkerLines(loc, lines, opts);
   const hasColumns = loc.start && typeof loc.start.column === 'number';
@@ -121,23 +110,23 @@ export function codeFrameColumns(
 
           markerLine = [
             '\n ',
-            maybeHighlight(defs.gutter, gutter.replace(/\d/g, ' ')),
+            gutter.replace(/\d/g, ' '),
             markerSpacing,
-            maybeHighlight(defs.marker, '^').repeat(numberOfMarkers),
+            '^'.repeat(numberOfMarkers),
           ].join('');
 
           if (lastMarkerLine && opts?.message) {
-            markerLine += ' ' + maybeHighlight(defs.message, String(opts?.message));
+            markerLine += ' ' + String(opts?.message);
           }
         }
         return [
-          maybeHighlight(defs.marker, '>'),
-          maybeHighlight(defs.gutter, gutter),
+          '>',
+          gutter,
           line,
           markerLine,
         ].join('');
       } else {
-        return ` ${maybeHighlight(defs.gutter, gutter)}${line}`;
+        return ` ${gutter}${line}`;
       }
     })
     .join('\n');
@@ -146,22 +135,20 @@ export function codeFrameColumns(
     frame = `${' '.repeat(numberMaxWidth + 1)}${opts.message}\n${frame}`;
   }
 
-
   return frame;
 }
 
-export function codeFrame (
+export const codeFrame = (
   rawLines: string,
   lineNumber: number,
   colNumber = 0,
   opts?: Record<string, string | number>,
-): string {
+): string => {
   colNumber = Math.max(+colNumber, 0);
 
   const location: NodeLocation = {
     start: { column: colNumber, line: lineNumber },
-    end: { column: colNumber, line: lineNumber },
   };
 
   return codeFrameColumns(rawLines, location, opts);
-}
+};
