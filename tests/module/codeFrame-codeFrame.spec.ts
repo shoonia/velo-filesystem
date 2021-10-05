@@ -114,11 +114,11 @@ describe('codeFrame', () => {
       rawLines,
       {
         start: {
-          line: 1,
+          lineNumber: 1,
           column: 1,
         },
         end: {
-          line: 3,
+          lineNumber: 3,
           column: 1,
         },
       },
@@ -220,7 +220,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      getFrame(rawLines, { start: { line: 2 } }, { linesAbove: 0 }),
+      getFrame(rawLines, { start: { lineNumber: 2 } }, { linesAbove: 0 }),
     ).toEqual(
       [
         '> 2 |   constructor() {',
@@ -240,7 +240,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      getFrame(rawLines, { start: { line: 2 } }, { linesBelow: 0 }),
+      getFrame(rawLines, { start: { lineNumber: 2 } }, { linesBelow: 0 }),
     ).toEqual(['  1 | class Foo {', '> 2 |   constructor() {'].join('\n'));
   });
 
@@ -255,7 +255,7 @@ describe('codeFrame', () => {
     expect(
       getFrame(
         rawLines,
-        { start: { line: 2 } },
+        { start: { lineNumber: 2 } },
         { linesAbove: 0, linesBelow: 0 },
       ),
     ).toEqual(['> 2 |   constructor() {'].join('\n'));
@@ -264,7 +264,7 @@ describe('codeFrame', () => {
   test('basic usage, new API', () => {
     const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
     expect(
-      getFrame(rawLines, { start: { line: 2, column: 16 } }),
+      getFrame(rawLines, { start: { lineNumber: 2, column: 16 } }),
     ).toEqual(
       [
         '  1 | class Foo {',
@@ -279,8 +279,8 @@ describe('codeFrame', () => {
     const rawLines = ['class Foo {', '  constructor()', '};'].join('\n');
     expect(
       getFrame(rawLines, {
-        start: { line: 2, column: 3 },
-        end: { line: 2, column: 16 },
+        start: { lineNumber: 2, column: 3 },
+        end: { lineNumber: 2, column: 16 },
       }),
     ).toEqual(
       [
@@ -298,8 +298,8 @@ describe('codeFrame', () => {
     );
     expect(
       getFrame(rawLines, {
-        start: { line: 2, column: 17 },
-        end: { line: 3, column: 3 },
+        start: { lineNumber: 2, column: 17 },
+        end: { lineNumber: 3, column: 3 },
       }),
     ).toEqual(
       [
@@ -323,8 +323,8 @@ describe('codeFrame', () => {
     ].join('\n');
     expect(
       getFrame(rawLines, {
-        start: { line: 2, column: 17 },
-        end: { line: 4, column: 3 },
+        start: { lineNumber: 2, column: 17 },
+        end: { lineNumber: 4, column: 3 },
       }),
     ).toEqual(
       [
@@ -349,7 +349,7 @@ describe('codeFrame', () => {
       '};',
     ].join('\n');
     expect(
-      getFrame(rawLines, { start: { line: 2 }, end: { line: 4 } }),
+      getFrame(rawLines, { start: { lineNumber: 2 }, end: { lineNumber: 4 } }),
     ).toEqual(
       [
         '  1 | class Foo {',
@@ -366,7 +366,7 @@ describe('codeFrame', () => {
     expect(
       getFrame(
         rawLines,
-        { start: { line: 2, column: 16 } },
+        { start: { lineNumber: 2, column: 16 } },
         {
           message: 'Missing {',
         },
@@ -390,7 +390,7 @@ describe('codeFrame', () => {
     expect(
       getFrame(
         rawLines,
-        { start: { line: 2 } },
+        { start: { lineNumber: 2 } },
         {
           message: 'Missing {',
         },
@@ -417,8 +417,8 @@ describe('codeFrame', () => {
       getFrame(
         rawLines,
         {
-          start: { line: 2, column: 17 },
-          end: { line: 4, column: 3 },
+          start: { lineNumber: 2, column: 17 },
+          end: { lineNumber: 4, column: 3 },
         },
         {
           message: 'something about the constructor body',
@@ -449,7 +449,7 @@ describe('codeFrame', () => {
     expect(
       getFrame(
         rawLines,
-        { start: { line: 2 }, end: { line: 4 } },
+        { start: { lineNumber: 2 }, end: { lineNumber: 4 } },
         {
           message: 'something about the constructor body',
         },

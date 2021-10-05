@@ -1,6 +1,6 @@
 interface Location {
   column?: number,
-  line?: number,
+  lineNumber?: number,
 }
 
 interface NodeLocation {
@@ -37,33 +37,22 @@ interface ICodeFrame {
 const NEWLINE = /\r\n|[\n\r\u2028\u2029]/;
 
 const getMarkerLines: IGetMarkerLines = (loc, source, opts) => {
-  const startLoc = {
-    column: 0,
-    line: -1,
-    ...loc.start,
-  };
+  const linesAbove = opts?.linesAbove ?? 2;
+  const linesBelow = opts?.linesBelow ?? 3;
 
-  const endLoc = {
-    ...startLoc,
-    ...loc.end,
-  };
+  const startLine = loc.start.lineNumber ?? -1;
+  const startColumn = loc.start.column ?? 0;
 
-  const { linesAbove = 2, linesBelow = 3 } = opts ?? {};
-  const startLine = startLoc.line;
-  const startColumn = startLoc.column;
-  const endLine = endLoc.line;
-  const endColumn = endLoc.column;
+  const endLine = loc.end?.lineNumber ?? startLine;
+  const endColumn = loc.end?.column ?? startColumn;
 
-  let start = Math.max(startLine - (linesAbove + 1), 0);
-  let end = Math.min(source.length, endLine + linesBelow);
+  const start = (startLine === -1)
+    ? 0
+    : Math.max(startLine - (linesAbove + 1), 0);
 
-  if (startLine === -1) {
-    start = 0;
-  }
-
-  if (endLine === -1) {
-    end = source.length;
-  }
+  const end = (endLine === -1)
+    ? source.length
+    : Math.min(source.length, endLine + linesBelow);
 
   const lineDiff = endLine - startLine;
   const markerLines: IMarkerLines = {};
@@ -152,8 +141,8 @@ export const getFrame: IGetCodeFrame = (rawLines, loc, opts) => {
 export const codeFrame: ICodeFrame = (rawLines, lineNumber, columnNumber = 0, opts) => {
   const location: NodeLocation = {
     start: {
-      column: Math.max(+columnNumber, 0),
-      line: lineNumber,
+      column: Math.max(columnNumber, 0),
+      lineNumber,
     },
   };
 
