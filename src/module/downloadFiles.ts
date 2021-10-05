@@ -2,7 +2,7 @@ import type { File } from './tree/File';
 import type { Directory } from './tree/Directory';
 import { getMetaFileValue } from '../manifest';
 import { getRootDir } from './fs';
-import { getModels, createPageMap } from './textModel';
+import { getModels, createPageMap, fileMatch } from './textModel';
 
 export const downloadFiles = async (): Promise<void> => {
   const [, rootDir] = await getRootDir();
@@ -24,13 +24,13 @@ export const downloadFiles = async (): Promise<void> => {
     const { path } = model.uri;
     const value = model.getValue();
 
-    if (path === '/public/pages/masterPage.js') {
+    if (fileMatch.isMasterPage(path)) {
       tasks.push(
         srcDir.writeChildFile('masterPage.js', value),
       );
     }
 
-    else if (path.startsWith('/public/pages/')) {
+    else if (fileMatch.isPages(path)) {
       const pages = await srcDir.getChildDirectory('pages');
 
       tasks.push(
@@ -38,10 +38,7 @@ export const downloadFiles = async (): Promise<void> => {
       );
     }
 
-    else if (
-      path.startsWith('/public/') ||
-      path.startsWith('/backend/')
-    ) {
+    else if (fileMatch.isPublicOrBackend(path)) {
       const paths = path.slice(1).split('/');
       const len = paths.length;
 

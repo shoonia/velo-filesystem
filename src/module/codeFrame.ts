@@ -93,11 +93,11 @@ const getMarkerLines: IGetMarkerLines = (loc, source, opts) => {
 export const getFrame: IGetCodeFrame = (rawLines, loc, opts) => {
   const lines = rawLines.split(NEWLINE);
   const { start, end, markerLines } = getMarkerLines(loc, lines, opts);
-  const hasColumns = typeof loc.start?.column === 'number';
+  const hasColumns = typeof loc.start.column === 'number';
 
   const numberMaxWidth = String(end).length;
 
-  let frame = rawLines
+  const frame = rawLines
     .split(NEWLINE, end)
     .slice(start, end)
     .map((line, index) => {
@@ -132,7 +132,7 @@ export const getFrame: IGetCodeFrame = (rawLines, loc, opts) => {
     .join('\n');
 
   if (opts?.message && !hasColumns) {
-    frame = `${' '.repeat(numberMaxWidth + 1)}${opts.message}\n${frame}`;
+    return `${' '.repeat(numberMaxWidth + 1)}${opts.message}\n${frame}`;
   }
 
   return frame;

@@ -12,6 +12,12 @@ interface IPageMap {
   (): (path: string) => string;
 }
 
+interface IFileMatch {
+  isMasterPage(path: string): boolean;
+  isPages(path: string): boolean;
+  isPublicOrBackend(path: string): boolean;
+}
+
 const allModels: IGetModels = () => {
   return window.monaco?.editor.getModels() ?? [];
 };
@@ -46,4 +52,18 @@ export const createPageMap: IPageMap = () => {
 
     return map.get(name) ?? name;
   };
+};
+
+export const fileMatch: IFileMatch = {
+  isMasterPage(path) {
+    return path === '/public/pages/masterPage.js';
+  },
+
+  isPages(path) {
+    return path.startsWith('/public/pages/');
+  },
+
+  isPublicOrBackend(path) {
+    return path.startsWith('/backend/') || path.startsWith('/public/');
+  },
 };
