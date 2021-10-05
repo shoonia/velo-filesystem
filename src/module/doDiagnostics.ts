@@ -8,7 +8,7 @@ interface IDiagnostic {
   readonly codeFrame: string;
 }
 
-interface IDiagnosticsResult {
+interface IDiagnosticReport {
   readonly fileName: string;
   readonly syntax: IDiagnostic[];
   readonly semantic: IDiagnostic[]
@@ -16,7 +16,7 @@ interface IDiagnosticsResult {
 }
 
 interface IDoDiagnostics {
-  (): Promise<IDiagnosticsResult[]>
+  (): Promise<IDiagnosticReport[]>
 }
 
 interface IMapResult {

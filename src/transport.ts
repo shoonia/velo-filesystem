@@ -9,6 +9,7 @@ export const enum ReqEvents {
 
 export const enum ResEvents {
   content_loaded = '<_content_loaded',
+  diagnostic = '<_diagnostic',
 }
 
 export interface IReqMessage {

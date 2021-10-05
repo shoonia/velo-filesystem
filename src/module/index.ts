@@ -16,7 +16,7 @@ window.addEventListener(CUSTOM_EVENT_REQUEST, (event) => {
 
     case ReqEvents.diagnostics: {
       return void doDiagnostics().then((report) => {
-        console.log(report);
+        dispatchEvent(ResEvents.diagnostic, report);
       });
     }
   }
