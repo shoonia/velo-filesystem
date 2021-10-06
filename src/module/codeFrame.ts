@@ -19,7 +19,7 @@ interface IMarkerLines {
 }
 
 interface IGetMarkerLines {
-  (loc: NodeLocation, source: string[], options?: IOptions): {
+  (loc: NodeLocation, source: readonly string[], options?: IOptions): {
     readonly start: number;
     readonly end: number;
     readonly markerLines: IMarkerLines;
@@ -91,27 +91,26 @@ const getMarkerLines: IGetMarkerLines = (loc, source, opts) => {
 };
 
 export const getFrame: IGetCodeFrame = (rawLines, loc, opts) => {
-  const lines = rawLines.split(NEWLINE);
+  const lines: readonly string[] = rawLines.split(NEWLINE);
   const { start, end, markerLines } = getMarkerLines(loc, lines, opts);
   const hasColumns = typeof loc.start.column === 'number';
 
   const numberMaxWidth = String(end).length;
 
-  const frame = rawLines
-    .split(NEWLINE, end)
+  const frame = lines
     .slice(start, end)
     .map((line, index) => {
       const number = start + 1 + index;
       const paddedNumber = ` ${number}`.slice(-numberMaxWidth);
       const gutter = ` ${paddedNumber} | `;
       const hasMarker = markerLines[number];
-      const lastMarkerLine = !markerLines[number + 1];
 
       if (hasMarker) {
         let markerLine = '';
 
         if (Array.isArray(hasMarker)) {
           const numberOfMarkers = hasMarker[1] || 1;
+          const lastMarkerLine = !markerLines[number + 1];
           const markerSpacing = line
             .slice(0, Math.max(hasMarker[0] - 1, 0))
             .replace(/[^\t]/g, ' ');
