@@ -1,17 +1,17 @@
 interface Location {
-  column?: number,
-  lineNumber?: number,
+  readonly column?: number,
+  readonly lineNumber?: number,
 }
 
 interface NodeLocation {
-  start: Location,
-  end?: Location,
+  readonly start: Location,
+  readonly end?: Location,
 }
 
 interface IOptions {
-  message?: string;
-  linesAbove?: number;
-  linesBelow?: number;
+  readonly message?: string;
+  readonly linesAbove?: number;
+  readonly linesBelow?: number;
 }
 
 interface IMarkerLines {
@@ -20,9 +20,9 @@ interface IMarkerLines {
 
 interface IGetMarkerLines {
   (loc: NodeLocation, source: string[], options?: IOptions): {
-    start: number;
-    end: number;
-    markerLines: IMarkerLines;
+    readonly start: number;
+    readonly end: number;
+    readonly markerLines: IMarkerLines;
   }
 }
 
