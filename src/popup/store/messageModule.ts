@@ -8,10 +8,6 @@ export const messageModule: TMoudule = ({ dispatch }) => {
       case ResEvents.content_loaded: {
         return dispatch('enable/toogle', true);
       }
-
-      case ResEvents.diagnostic: {
-        console.log(message.payload);
-      }
     }
   });
 };
