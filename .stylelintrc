@@ -11,5 +11,13 @@
         ]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "customSyntax": "postcss-html",
+      "files": [
+        "**/*.svelte"
+      ]
+    }
+  ]
 }
