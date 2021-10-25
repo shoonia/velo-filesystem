@@ -40,8 +40,8 @@
   }
 
   :global(body) {
-    color: var(--D10);
-    background-color: var(--D70);
+    color: var(--d10);
+    background-color: var(--d70);
   }
 
   main {
@@ -56,7 +56,7 @@
 
   footer {
     padding: 10px;
-    border-top: 1px solid var(--D50);
+    border-top: 1px solid var(--d50);
     display: flex;
     align-items: center;
     justify-content: space-between;

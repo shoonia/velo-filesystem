@@ -17,6 +17,6 @@
 
 <style>
   a {
-    color: var(--B10);
+    color: var(--b10);
   }
 </style>

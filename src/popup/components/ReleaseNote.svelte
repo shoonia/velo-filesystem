@@ -9,6 +9,6 @@
 <style>
   span {
     font-size: 12px;
-    color: var(--D50);
+    color: var(--d50);
   }
 </style>
