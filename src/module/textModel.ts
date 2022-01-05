@@ -1,7 +1,7 @@
-import type { editor, languages } from 'monaco-editor';
+import type { editor } from 'monaco-editor';
+import type { IPage } from 'src/types';
 
 type IGetModels = () => editor.ITextModel[];
-type IGetJsWorker = () => ReturnType<typeof languages.typescript.getJavaScriptWorker> | undefined
 type IPageMap = () => (path: string) => string;
 
 interface IFileMatch {
@@ -11,7 +11,7 @@ interface IFileMatch {
 }
 
 const allModels: IGetModels = () => {
-  return window.monaco?.editor.getModels() ?? [];
+  return window.monaco?.editor?.getModels() ?? [];
 };
 
 export const getModels: IGetModels = () => {
@@ -28,14 +28,23 @@ export const getJsModels: IGetModels = () => {
   });
 };
 
-export const getJsWorker: IGetJsWorker = () => {
-  return window.monaco?.languages.typescript.getJavaScriptWorker();
+export const getPages = (): IPage[] => {
+  if (Array.isArray(window.editorModel?.siteHeader?.pageIdList?.pages)) {
+    return window.editorModel?.siteHeader?.pageIdList?.pages ?? [];
+  }
+
+  if (Array.isArray(window?.siteHeader?.pageIdList?.pages)) {
+    return window?.siteHeader?.pageIdList?.pages ?? [];
+  }
+
+  return [];
 };
 
 export const createPageMap: IPageMap = () => {
   const map = new Map<string, string>();
+  const pages = getPages();
 
-  window.siteHeader?.pageIdList.pages.forEach((i) => {
+  pages.forEach((i) => {
     map.set(`${i.pageId}.js`, `${i.title}.${i.pageId}.js`);
   });
 
