@@ -1,9 +1,7 @@
 /// <reference types="jest"/>
 import type { editor } from 'monaco-editor';
 
-interface IMockModels {
-  (paths: string[]): () => void
-}
+type IMockModels = (paths: string[]) => () => void;
 
 export const createModelsMock: IMockModels = (paths) => {
   Object.assign(window, {
