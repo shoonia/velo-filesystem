@@ -1,16 +1,8 @@
 import type { editor, languages } from 'monaco-editor';
 
-interface IGetModels {
-  (): editor.ITextModel[];
-}
-
-interface IGetJsWorker {
-  (): ReturnType<typeof languages.typescript.getJavaScriptWorker> | undefined
-}
-
-interface IPageMap {
-  (): (path: string) => string;
-}
+type IGetModels = () => editor.ITextModel[];
+type IGetJsWorker = () => ReturnType<typeof languages.typescript.getJavaScriptWorker> | undefined
+type IPageMap = () => (path: string) => string;
 
 interface IFileMatch {
   isMasterPage(path: string): boolean;
@@ -55,15 +47,15 @@ export const createPageMap: IPageMap = () => {
 };
 
 export const fileMatch: IFileMatch = {
-  isMasterPage(path) {
+  isMasterPage(path): boolean {
     return path === '/public/pages/masterPage.js';
   },
 
-  isPages(path) {
+  isPages(path): boolean {
     return path.startsWith('/public/pages/');
   },
 
-  isPublicOrBackend(path) {
+  isPublicOrBackend(path): boolean {
     return path.startsWith('/backend/') || path.startsWith('/public/');
   },
 };

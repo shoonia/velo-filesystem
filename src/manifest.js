@@ -9,7 +9,6 @@ import {
 
 export { version, discussions };
 
-/* eslint @typescript-eslint/explicit-module-boundary-types: off */
 /**
  * @param {boolean} isProd
  * @returns {Readonly<chrome.runtime.ManifestV3>}

@@ -1,8 +1,6 @@
 import { Directory } from './tree/Directory';
 
-interface IGetRootDir {
-  (): Promise<[DOMException | null, Directory | null]>;
-}
+type IGetRootDir = () => Promise<[DOMException | null, Directory | null]>;
 
 export const getRootDir: IGetRootDir = async () => {
   try {
