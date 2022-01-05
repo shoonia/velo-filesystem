@@ -10,22 +10,10 @@ interface IFileMatch {
   isPublicOrBackend(path: string): boolean;
 }
 
-const allModels: IGetModels = () => {
-  return window.monaco?.editor?.getModels() ?? [];
-};
-
 export const getModels: IGetModels = () => {
-  return allModels().filter(
-    (model) => model.uri.path.indexOf('@') === -1,
-  );
-};
+  const modules = window.monaco?.editor?.getModels() ?? [];
 
-export const getJsModels: IGetModels = () => {
-  return allModels().filter((model) => {
-    const { path } = model.uri;
-
-    return path.indexOf('@') === -1 && /\.js(w)?$/i.test(path);
-  });
+  return modules.filter((i) => i.uri.path.indexOf('@') === -1);
 };
 
 export const getPages = (): IPage[] => {
