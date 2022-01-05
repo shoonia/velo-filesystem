@@ -9,7 +9,7 @@ Alpha: [Chrome Web Store](https://chrome.google.com/webstore/detail/velo-filesys
 ## TODO:
 
 - [ ] File System integration
-  - [ ] Download files from Velo Editor to local file system
+  - [x] Download files from Velo Editor to local file system
   - [ ] Upload files from local file system to Velo Editor
 
 - [ ] Rebase mode
