@@ -21,6 +21,12 @@ Alpha: [Chrome Web Store](https://chrome.google.com/webstore/detail/velo-filesys
   - [ ] Synchronization local file system to Velo Editor
   - [ ] Synchronization parallel between Velo Editor and local file system
 
+## VS Code Extension
+
+[![extension version](https://vsmarketplacebadge.apphb.com/version/shoonia.vscode-corvid.svg)](https://marketplace.visualstudio.com/items?itemName=shoonia.vscode-corvid)
+
+The [VS Code extension](https://github.com/shoonia/vscode-corvid) to work with `velo-filesystem` chrome extension. Highlighting `.jsw`, support `jobs.config`, autocomplete, snippets
+
 ## License
 
 [MIT](./LICENSE)
