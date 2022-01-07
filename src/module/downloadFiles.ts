@@ -1,6 +1,6 @@
 import type { File } from './tree/File';
 import type { Directory } from './tree/Directory';
-import { getMetaFileValue } from '../manifest';
+import { getMetaFileValue } from '../assets/manifest';
 import { getRootDir } from './fs';
 import { getModels, createPageMap, fileMatch } from './textModel';
 

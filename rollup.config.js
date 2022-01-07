@@ -10,7 +10,7 @@ import json from '@rollup/plugin-json';
 import { emptyDirSync, copySync, writeJSONSync } from 'fs-extra';
 import postcssImport from 'postcss-import';
 
-import { getManifest } from './src/manifest';
+import { getManifest } from './src/assets/manifest';
 
 const isProd = !process.env.ROLLUP_WATCH;
 const isDev = !isProd;

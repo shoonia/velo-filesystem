@@ -5,7 +5,7 @@ import {
   author,
   homepage,
   discussions,
-} from '../package.json';
+} from '../../package.json';
 
 export { version, discussions };
 

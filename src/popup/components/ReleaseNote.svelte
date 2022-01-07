@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { version } from '../../manifest';
+  import { version } from '../../assets/manifest';
 </script>
 
 <span>
