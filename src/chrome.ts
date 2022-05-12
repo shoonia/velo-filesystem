@@ -31,7 +31,7 @@ export const sendReqMessage = async (
 };
 
 export const sendResMessage = (message: IResMessage): void => {
-  chrome.runtime.sendMessage(message);
+  void chrome.runtime.sendMessage(message);
 };
 
 export const onMessage = <T extends IResMessage | IReqMessage>(
