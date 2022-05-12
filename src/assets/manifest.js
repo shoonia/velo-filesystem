@@ -29,7 +29,7 @@ export const getManifest = (isProd) => ({
   ],
   host_permissions: [
     'https://editor.wix.com/html/editor/web/*',
-    'https://create.editorx.com/html/editor/web/*',
+    'https://create.editorx.com/edit/',
   ],
   action: {
     default_popup: 'popup.html',
@@ -39,7 +39,7 @@ export const getManifest = (isProd) => ({
     {
       matches: [
         'https://editor.wix.com/html/editor/web/*',
-        'https://create.editorx.com/html/editor/web/*',
+        'https://create.editorx.com/edit/*',
       ],
       js: [
         'content.js',
