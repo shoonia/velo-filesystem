@@ -17,24 +17,30 @@ export const getModels: IGetModels = () => {
 };
 
 export const getPages = (): IPage[] => {
-  if (Array.isArray(window.editorModel?.siteHeader?.pageIdList?.pages)) {
-    return window.editorModel?.siteHeader?.pageIdList?.pages ?? [];
+  const pages = window.editorModel?.siteHeader?.pageIdList?.pages;
+
+  if (Array.isArray(pages)) {
+    return pages;
   }
 
-  if (Array.isArray(window?.siteHeader?.pageIdList?.pages)) {
-    return window?.siteHeader?.pageIdList?.pages ?? [];
+  const pages2 = window.siteHeader?.pageIdList?.pages;
+
+  if (Array.isArray(pages2)) {
+    return pages2;
   }
 
   return [];
 };
 
 export const createPageMap: IPageMap = () => {
-  const map = new Map<string, string>();
   const pages = getPages();
 
-  pages.forEach((i) => {
-    map.set(`${i.pageId}.js`, `${i.title}.${i.pageId}.js`);
-  });
+  const map = new Map<string, string>(
+    pages.map((i) => [
+      `${i.pageId}.js`,
+      `${i.title}.${i.pageId}.js`,
+    ]),
+  );
 
   return (path: string): string => {
     const name = path.split('/').pop() ?? '';

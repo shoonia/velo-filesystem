@@ -4,11 +4,9 @@ type IGetRootDir = () => Promise<[DOMException | null, Directory | null]>;
 
 export const getRootDir: IGetRootDir = async () => {
   try {
-    const root = await window.showDirectoryPicker();
+    const handler = await window.showDirectoryPicker();
 
-    const rootDir = new Directory({
-      handler: root,
-    });
+    const rootDir = new Directory(handler);
 
     return [null, rootDir];
   } catch (error) {

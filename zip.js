@@ -1,4 +1,4 @@
-import { createRequire } from 'module';
+import { createRequire } from 'node:module';
 import { zipSync } from 'cross-zip';
 
 const require = createRequire(import.meta.url);

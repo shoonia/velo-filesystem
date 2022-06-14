@@ -13,13 +13,10 @@ export const createElement = <T extends keyof M>(
   return Object.assign(document.createElement<T>(tagName), props);
 };
 
-export const dispatchEvent = (type: ResEvents, payload?: unknown): void => {
+export const dispatchEvent = (type: ResEvents): void => {
   window.dispatchEvent(
     new CustomEvent<IResMessage>(CUSTOM_EVENT_RESPONSE, {
-      detail: {
-        type,
-        payload,
-      },
+      detail: { type },
     }),
   );
 };

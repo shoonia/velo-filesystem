@@ -1,13 +1,7 @@
-interface IFileOptions {
-  handler: FileSystemFileHandle;
-}
-
 export class File {
   #handler: FileSystemFileHandle;
 
-  constructor({
-    handler,
-  }: IFileOptions) {
+  constructor(handler: FileSystemFileHandle) {
     this.#handler = handler;
   }
 

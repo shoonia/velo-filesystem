@@ -9,10 +9,7 @@ export const getURL = (path: string): string => {
   return chrome.runtime.getURL(path);
 };
 
-export const sendReqMessage = async (
-  type: ReqEvents,
-  payload?: unknown,
-): Promise<void> => {
+export const sendReqMessage = async (type: ReqEvents): Promise<void> => {
   const [tab] = await chrome.tabs.query({
     active: true,
     currentWindow: true,
@@ -23,10 +20,7 @@ export const sendReqMessage = async (
       return reject();
     }
 
-    chrome.tabs.sendMessage<IReqMessage>(tab.id, {
-      type,
-      payload,
-    }, resolve);
+    chrome.tabs.sendMessage<IReqMessage>(tab.id, { type }, resolve);
   });
 };
 

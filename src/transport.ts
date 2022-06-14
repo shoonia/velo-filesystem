@@ -12,10 +12,8 @@ export const enum ResEvents {
 
 export interface IReqMessage {
   type: ReqEvents;
-  payload?: unknown;
 }
 
 export interface IResMessage {
   type: ResEvents;
-  payload?: unknown;
 }

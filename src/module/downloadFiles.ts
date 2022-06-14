@@ -11,7 +11,7 @@ export const downloadFiles = async (): Promise<void> => {
     return;
   }
 
-  const srcDir = await rootDir.appendDirectory('src');
+  const srcDir = await rootDir.getChildDirectory('src');
 
   const models = getModels();
   const getPageName = createPageMap();
