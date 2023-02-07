@@ -25,13 +25,7 @@
 </footer>
 
 <style>
-  @import "../styles/vars.css";
-
-  :global(*),
-  :global(*::before),
-  :global(*::after) {
-    box-sizing: border-box;
-  }
+  @import url("../styles/vars.css");
 
   :global(html),
   :global(body) {

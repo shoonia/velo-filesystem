@@ -7,10 +7,10 @@ import css from 'rollup-plugin-css-only';
 import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import json from '@rollup/plugin-json';
-import { emptyDirSync, copySync, writeJSONSync } from 'fs-extra';
+import fse from 'fs-extra';
 import postcssImport from 'postcss-import';
 
-import { getManifest } from './src/assets/manifest';
+import { getManifest } from './src/assets/manifest.js';
 
 const isProd = !process.env.ROLLUP_WATCH;
 const isDev = !isProd;
@@ -62,9 +62,9 @@ const plugins = [
 ]
   .filter(Boolean);
 
-emptyDirSync('./build');
-copySync('./static', './build');
-writeJSONSync('./build/manifest.json', getManifest(isProd));
+fse.emptyDirSync('./build');
+fse.copySync('./static', './build');
+fse.writeJSONSync('./build/manifest.json', getManifest(isProd));
 
 export default [
   {
