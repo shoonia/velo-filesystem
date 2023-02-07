@@ -5,7 +5,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
 import css from 'rollup-plugin-css-only';
 import replace from '@rollup/plugin-replace';
-import tarser from '@rollup/plugin-terser';
+import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
 import fse from 'fs-extra';
 import postcssImport from 'postcss-import';
@@ -58,7 +58,7 @@ const plugins = [
     ...babelConfig,
   }),
   commonjs(),
-  isProd && tarser(),
+  isProd && terser(),
 ]
   .filter(Boolean);
 
