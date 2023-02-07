@@ -1,13 +1,12 @@
-import {
+/// <reference types="node" />
+import { createRequire } from 'node:module';
+const {
   title,
   version,
   description,
   author,
   homepage,
-  discussions,
-} from '../../package.json';
-
-export { version, discussions };
+} = createRequire(import.meta.url)('../../package.json');
 
 /**
  * @param {boolean} isProd
@@ -59,7 +58,3 @@ export const getManifest = (isProd) => ({
     },
   ],
 });
-
-export const getMetaFileValue = () => {
-  return JSON.stringify({ version }, null, 2);
-};

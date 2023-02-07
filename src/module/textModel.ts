@@ -1,5 +1,5 @@
 import type { editor } from 'monaco-editor';
-import type { IPage } from 'src/types';
+import type { IPage } from '../../src/types';
 
 type IGetModels = () => editor.ITextModel[];
 type IPageMap = () => (path: string) => string;

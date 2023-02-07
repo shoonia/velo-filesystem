@@ -1,6 +1,6 @@
 <script lang="ts">
   import { to } from '../../chrome';
-  import { discussions as link } from '../../assets/manifest';
+  import { discussions as link } from '../../assets/pkg';
 
   const handleClick: EventListener = (event) => {
     event.preventDefault();

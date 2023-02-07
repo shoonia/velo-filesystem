@@ -1,13 +1,11 @@
 <script lang="ts">
-  import { useStoreon } from '@storeon/svelte';
-
-  import type { IState, IEvents } from '../store/types';
   import Button from './Button.svelte';
   import DownloadIcon from './icons/Download.svelte';
+  import { useStoreon } from '../store';
   import { sendReqMessage } from '../../chrome';
   import { ReqEvents } from '../../transport';
 
-  const { isEnable } = useStoreon<IState, IEvents>('isEnable');
+  const { isEnable } = useStoreon('isEnable');
 
   const downloadFiles: EventListener = () => {
     void sendReqMessage(ReqEvents.download);
