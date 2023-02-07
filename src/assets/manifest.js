@@ -58,7 +58,3 @@ export const getManifest = (isProd) => ({
     },
   ],
 });
-
-export const getMetaFileValue = () => {
-  return JSON.stringify({ version }, null, 2);
-};
