@@ -9,7 +9,7 @@ Alpha: [Chrome Web Store](https://chrome.google.com/webstore/detail/velo-filesys
 ## TODO:
 
 - [ ] File System integration
-  - [x] Download files from Velo Editor to local file system
+  - [x] [Download files from Velo Editor to local file system](https://shoonia.site/velo-filesystem-chrome-extension/)
   - [ ] Upload files from local file system to Velo Editor
 
 - [ ] Rebase mode
@@ -20,12 +20,6 @@ Alpha: [Chrome Web Store](https://chrome.google.com/webstore/detail/velo-filesys
   - [ ] Synchronization Velo Editor to local file system
   - [ ] Synchronization local file system to Velo Editor
   - [ ] Synchronization parallel between Velo Editor and local file system
-
-## VS Code Extension
-
-[![extension version](https://vsmarketplacebadge.apphb.com/version/shoonia.vscode-corvid.svg)](https://marketplace.visualstudio.com/items?itemName=shoonia.vscode-corvid)
-
-The [VS Code extension](https://github.com/shoonia/vscode-corvid) to work with `velo-filesystem` chrome extension. Highlighting `.jsw`, support `jobs.config`, autocomplete, snippets
 
 ## License
 
