@@ -1,4 +1,4 @@
-import './styles/vars.css';
+import './main.css';
 import { App } from './components/App';
 import { readyStore } from './store';
 
