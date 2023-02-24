@@ -1,5 +1,3 @@
-import svelte from 'rollup-plugin-svelte';
-import sveltePreprocess from 'svelte-preprocess';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
@@ -8,12 +6,10 @@ import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
 import fse from 'fs-extra';
-import postcssImport from 'postcss-import';
 
 import { getManifest } from './src/assets/manifest.js';
 
 const isProd = !process.env.ROLLUP_WATCH;
-const isDev = !isProd;
 const nodeEnv = isProd ? 'production' : 'development';
 
 process.env.NODE_ENV = nodeEnv;
@@ -21,11 +17,13 @@ process.env.NODE_ENV = nodeEnv;
 const extensions = [
   '.js',
   '.ts',
+  '.tsx',
 ];
 
 const babelConfig = {
   presets: [
     '@babel/typescript',
+    'jsx-dom-runtime/babel-preset',
   ],
   plugins: [
     [
@@ -68,28 +66,12 @@ fse.writeJSONSync('./build/manifest.json', getManifest(isProd));
 
 export default [
   {
-    input: './src/popup/main.ts',
+    input: './src/popup/main.tsx',
     output: {
       file: './build/popup.js',
       format: 'es',
     },
     plugins: [
-      svelte({
-        compilerOptions: {
-          dev: isDev,
-          sourcemap: isDev,
-          cssHash: ({ css, hash }) => `s-${hash(css)}`,
-        },
-        preprocess: sveltePreprocess({
-          sourceMap: isDev,
-          babel: babelConfig,
-          postcss: {
-            plugins: [
-              postcssImport,
-            ],
-          },
-        }),
-      }),
       css({
         output: 'popup.css',
       }),

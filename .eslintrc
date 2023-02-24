@@ -2,39 +2,22 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "plugin:@typescript-eslint/recommended"
   ],
   "plugins": [
-    "svelte3",
     "@typescript-eslint"
   ],
   "parserOptions": {
     "ecmaVersion": 2022,
     "sourceType": "module",
-    "tsconfigRootDir": ".",
-    "project": [
-      "./tsconfig.json"
-    ],
-    "extraFileExtensions": [
-      ".svelte"
-    ]
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "env": {
     "es6": true,
     "browser": true,
     "node": true
-  },
-  "overrides": [
-    {
-      "files": [
-        "*.svelte"
-      ],
-      "processor": "svelte3/svelte3"
-    }
-  ],
-  "settings": {
-    "svelte3/typescript": true
   },
   "ignorePatterns": [
     "node_modules/*",

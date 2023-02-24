@@ -1,23 +1,5 @@
 {
   "extends": [
     "stylelint-config-standard"
-  ],
-  "rules": {
-    "selector-pseudo-class-no-unknown": [
-      true,
-      {
-        "ignorePseudoClasses": [
-          "global"
-        ]
-      }
-    ]
-  },
-  "overrides": [
-    {
-      "customSyntax": "postcss-html",
-      "files": [
-        "**/*.svelte"
-      ]
-    }
   ]
 }

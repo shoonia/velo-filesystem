@@ -1,0 +1,19 @@
+:root {
+  --d10: #162d3d;
+  --d50: #b6c1cd;
+  --d70: #f0f4f7;
+  --b10: #3899ec;
+  --bx00: #2224e2;
+  --bx10: #3637f5;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--d10);
+  background-color: var(--d70);
+}
