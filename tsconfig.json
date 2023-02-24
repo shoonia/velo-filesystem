@@ -1,5 +1,4 @@
 {
-  "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
     "checkJs": true,
     "baseUrl": "./",
@@ -16,13 +15,12 @@
     "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "jsx-dom-runtime",
     "lib": [
       "ES2022",
       "DOM"
     ],
-    "types": [
-      "svelte"
-    ]
   },
   "include": [
     "src/**/*",
