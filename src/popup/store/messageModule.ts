@@ -2,11 +2,11 @@ import type { TMoudule } from './types';
 import { onMessage } from '../../chrome';
 import { IResMessage, ResEvents } from '../../transport';
 
-export const messageModule: TMoudule = ({ dispatch }) => {
+export const messageModule: TMoudule = (store) => {
   onMessage<IResMessage>((message) => {
     switch (message?.type) {
       case ResEvents.content_loaded: {
-        return dispatch('enable/toogle', true);
+        return store.set({ isEnable: true });
       }
     }
   });
