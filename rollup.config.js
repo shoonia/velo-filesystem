@@ -1,8 +1,6 @@
-import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
 import css from 'rollup-plugin-css-only';
-import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
 import fse from 'fs-extra';
@@ -10,42 +8,15 @@ import fse from 'fs-extra';
 import { getManifest } from './src/assets/manifest.js';
 
 const isProd = !process.env.ROLLUP_WATCH;
-const nodeEnv = isProd ? 'production' : 'development';
-
-process.env.NODE_ENV = nodeEnv;
-
 const extensions = [
-  '.js',
   '.ts',
   '.tsx',
 ];
-
-const babelConfig = {
-  presets: [
-    '@babel/typescript',
-    'jsx-dom-runtime/babel-preset',
-  ],
-  plugins: [
-    [
-      'const-enum',
-      {
-        transform: 'constObject',
-      },
-    ],
-  ],
-};
 
 const plugins = [
   nodeResolve({
     extensions,
     browser: true,
-    dedupe: [
-      'svelte',
-    ],
-  }),
-  replace({
-    preventAssignment: true,
-    'process.env.NODE_ENV': JSON.stringify(nodeEnv),
   }),
   json({
     preferConst: true,
@@ -53,9 +24,19 @@ const plugins = [
   babel({
     babelHelpers: 'bundled',
     extensions,
-    ...babelConfig,
+    presets: [
+      '@babel/typescript',
+      'jsx-dom-runtime/babel-preset',
+    ],
+    plugins: [
+      [
+        'const-enum',
+        {
+          transform: 'constObject',
+        },
+      ],
+    ],
   }),
-  commonjs(),
   isProd && terser(),
 ]
   .filter(Boolean);
@@ -77,9 +58,6 @@ export default [
       }),
       ...plugins,
     ],
-    watch: {
-      clearScreen: false,
-    },
   },
   {
     input: './src/content/index.ts',
@@ -88,9 +66,6 @@ export default [
       format: 'es',
     },
     plugins,
-    watch: {
-      clearScreen: false,
-    },
   },
   {
     input: './src/module/index.ts',
@@ -99,8 +74,5 @@ export default [
       format: 'iife',
     },
     plugins,
-    watch: {
-      clearScreen: false,
-    },
   },
 ];
