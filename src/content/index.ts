@@ -4,15 +4,14 @@ import {
   CUSTOM_EVENT_RESPONSE,
 } from '../transport';
 import { getURL, onMessage, sendResMessage } from '../chrome';
-import { createElement } from '../util';
 
-const script = createElement('script', {
-  type: 'module',
-  src: getURL('module.js'),
-  async: true,
-});
-
-document.body.append(script);
+document.body.append(
+  Object.assign(document.createElement('script'), {
+    type: 'module',
+    src: getURL('module.js'),
+    async: true,
+  }),
+);
 
 window.addEventListener(CUSTOM_EVENT_RESPONSE, ({ detail }) => {
   sendResMessage(detail);
