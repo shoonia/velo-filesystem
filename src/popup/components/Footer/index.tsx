@@ -13,7 +13,7 @@ export const Footer: FC = () => {
   return (
     <footer class="footer">
       <span class="note">
-        v{version}-alpha
+        {`v${version}-alpha`}
       </span>
       <a
         href={link}

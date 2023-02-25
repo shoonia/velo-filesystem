@@ -5,7 +5,6 @@ import { connect, dispatch } from '../../store';
 
 export const DashboardPage: FC = () => {
   const refCheckBox = useRef<HTMLInputElement>();
-  const refButton = useRef<HTMLButtonElement>();
 
   const check: EventListener = () => {
     dispatch('toggle/includePageId', refCheckBox.current.checked);
@@ -33,7 +32,6 @@ export const DashboardPage: FC = () => {
           &nbsp;Include page ID
         </label>
         <button
-          ref={refButton}
           type="button"
           class="btn"
           onclick={downloadFiles}
