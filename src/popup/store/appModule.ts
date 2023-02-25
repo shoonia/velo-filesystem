@@ -1,5 +1,5 @@
 import type { TMoudule } from './types';
-import { IResMessage, ReqEvents, ResEvents } from '../../../src/transport';
+import { type IResMessage, ReqEvents, ResEvents } from '../../../src/transport';
 import { onMessage, sendReqMessage } from '../../../src/chrome';
 
 const key = 'excludePageId';

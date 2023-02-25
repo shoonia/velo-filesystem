@@ -4,12 +4,6 @@ import type { IPage } from '../../src/types';
 type IGetModels = () => editor.ITextModel[];
 type IPageMap = (includePageId: boolean) => (path: string) => string;
 
-interface IFileMatch {
-  isMasterPage(path: string): boolean;
-  isPages(path: string): boolean;
-  isPublicOrBackend(path: string): boolean;
-}
-
 export const getModels: IGetModels = () => {
   const modules = window.monaco?.editor?.getModels() ?? [];
 
@@ -49,16 +43,14 @@ export const createPageMap: IPageMap = (includePageId) => {
   };
 };
 
-export const fileMatch: IFileMatch = {
-  isMasterPage(path): boolean {
-    return path === '/public/pages/masterPage.js';
-  },
+export const isMasterPage = (path: string): boolean => {
+  return path === '/public/pages/masterPage.js';
+};
 
-  isPages(path): boolean {
-    return path.startsWith('/public/pages/');
-  },
+export const isPages = (path: string): boolean => {
+  return path.startsWith('/public/pages/');
+};
 
-  isPublicOrBackend(path): boolean {
-    return path.startsWith('/backend/') || path.startsWith('/public/');
-  },
+export const isPublicOrBackend = (path: string): boolean => {
+  return path.startsWith('/backend/') || path.startsWith('/public/');
 };
