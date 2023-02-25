@@ -6,6 +6,7 @@ export interface IState {
 }
 
 export interface IEvents {
+  'download/file': never;
   'toggle/includePageId': boolean;
 }
 

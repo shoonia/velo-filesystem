@@ -1,6 +1,6 @@
 import type { TMoudule } from './types';
-import { IResMessage, ResEvents } from '../../../src/transport';
-import { onMessage } from '../../../src/chrome';
+import { IResMessage, ReqEvents, ResEvents } from '../../../src/transport';
+import { onMessage, sendReqMessage } from '../../../src/chrome';
 
 const key = 'excludePageId';
 
@@ -10,6 +10,14 @@ export const appModule: TMoudule = (store) => {
       isEnable: false,
       includePageId: !localStorage.getItem(key),
     };
+  });
+
+  store.on('@ready', (state) => {
+    sendReqMessage(ReqEvents.onmout, state);
+  });
+
+  store.on('download/file', (state) => {
+    sendReqMessage(ReqEvents.download, state);
   });
 
   store.on('toggle/includePageId', (_, includePageId) => {

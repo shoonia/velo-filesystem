@@ -1,9 +1,7 @@
 import { type FC, useRef } from 'jsx-dom-runtime';
 
 import './styles.css';
-import { sendReqMessage } from '../../../chrome';
-import { ReqEvents } from '../../../transport';
-import { connect, dispatch, getState } from '../../store';
+import { connect, dispatch } from '../../store';
 
 export const DashboardPage: FC = () => {
   const refCheckBox = useRef<HTMLInputElement>();
@@ -14,7 +12,7 @@ export const DashboardPage: FC = () => {
   };
 
   const downloadFiles: EventListener = () => {
-    sendReqMessage(ReqEvents.download, getState());
+    dispatch('download/file');
   };
 
   const ready = (fieldset: HTMLFieldSetElement) => {
@@ -25,8 +23,6 @@ export const DashboardPage: FC = () => {
     connect('isEnable', (state) => {
       fieldset.disabled = !state.isEnable;
     });
-
-    sendReqMessage(ReqEvents.onmout, getState());
   };
 
   return (
