@@ -2,10 +2,27 @@ import type { File } from './tree/File';
 import type { Directory } from './tree/Directory';
 import type { IState } from 'src/popup/store/types';
 import { getMetaFileValue } from '../assets/pkg';
-import { getRootDir } from './fs';
-import { getModels, createPageMap, isMasterPage, isPages, isPublicOrBackend } from './textModel';
+import { duplicateErrorMessage, getRootDir } from './fs';
+import { getModels,
+  getPages,
+  createPageMap,
+  isMasterPage,
+  isPages,
+  isPublicOrBackend,
+  findDuplicate,
+} from './textModel';
 
 export const downloadFiles = async ({ includePageId }: IState): Promise<void> => {
+  const pages = getPages();
+
+  if (!includePageId) {
+    const duplicate = findDuplicate(pages);
+
+    if (duplicate) {
+      return duplicateErrorMessage(duplicate);
+    }
+  }
+
   const [, rootDir] = await getRootDir();
 
   if (rootDir === null) {
@@ -15,7 +32,7 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
   const srcDir = await rootDir.getDirectory('src');
 
   const models = getModels();
-  const getPageName = createPageMap(includePageId);
+  const getPageName = createPageMap(includePageId, pages);
 
   const tasks: Promise<File>[] = [
     rootDir.writeFile('velofilesystemrc', getMetaFileValue()),

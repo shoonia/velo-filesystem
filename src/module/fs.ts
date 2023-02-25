@@ -1,19 +1,23 @@
+import type { IPage } from '../types';
 import { Directory } from './tree/Directory';
 
-type IGetRootDir = () => Promise<[DOMException | null, Directory | null]>;
-
-export const getRootDir: IGetRootDir = async () => {
+export const getRootDir = async () => {
   try {
     const handler = await window.showDirectoryPicker();
 
-    const rootDir = new Directory(handler);
-
-    return [null, rootDir];
+    return [null, new Directory(handler)] as const;
   } catch (error) {
     if (error instanceof DOMException) {
-      return [error, null];
+      return [error, null] as const;
     }
 
     throw error;
   }
+};
+
+export const duplicateErrorMessage = (page: IPage): void => {
+  const message = `A few pages with duplicate titles - "${page.title}."\n\n` +
+    'Please rename each duplicate page title and reload the browser tab or check on ✅ "Include page ID"';
+
+  alert(message);
 };

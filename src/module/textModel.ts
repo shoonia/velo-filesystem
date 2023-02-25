@@ -2,7 +2,7 @@ import type { editor } from 'monaco-editor';
 import type { IPage } from '../../src/types';
 
 type IGetModels = () => editor.ITextModel[];
-type IPageMap = (includePageId: boolean) => (path: string) => string;
+type IPageMap = (includePageId: boolean, pages: readonly IPage[]) => (path: string) => string;
 
 export const getModels: IGetModels = () => {
   const modules = window.monaco?.editor?.getModels() ?? [];
@@ -10,7 +10,7 @@ export const getModels: IGetModels = () => {
   return modules.filter((i) => i.uri.path.indexOf('@') === -1);
 };
 
-export const getPages = (): IPage[] => {
+export const getPages = (): readonly IPage[] => {
   const pages = window.editorModel?.siteHeader?.pageIdList?.pages;
 
   if (Array.isArray(pages)) {
@@ -26,9 +26,7 @@ export const getPages = (): IPage[] => {
   return [];
 };
 
-export const createPageMap: IPageMap = (includePageId) => {
-  const pages = getPages();
-
+export const createPageMap: IPageMap = (includePageId, pages) => {
   const map = new Map<string, string>(
     pages.map((i) => [
       `${i.pageId}.js`,
@@ -53,4 +51,16 @@ export const isPages = (path: string): boolean => {
 
 export const isPublicOrBackend = (path: string): boolean => {
   return path.startsWith('/backend/') || path.startsWith('/public/');
+};
+
+export const findDuplicate = (pages: readonly IPage[]): IPage | undefined => {
+  return pages.find((page, index) => {
+    for (let i = index + 1; i < pages.length; i++) {
+      if (pages[i].title === page.title) {
+        return true;
+      }
+    }
+
+    return false;
+  });
 };
