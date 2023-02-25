@@ -1,3 +1,5 @@
+import type { IState } from './popup/store/types';
+
 export const CUSTOM_EVENT_REQUEST = '>_request::velo-filesystem';
 export const CUSTOM_EVENT_RESPONSE = '<_response::velo-filesystem';
 
@@ -12,6 +14,7 @@ export const enum ResEvents {
 
 export interface IReqMessage {
   type: ReqEvents;
+  state: IState;
 }
 
 export interface IResMessage {

@@ -1,58 +1,76 @@
 import type { File } from './tree/File';
 import type { Directory } from './tree/Directory';
+import type { IState } from 'src/popup/store/types';
 import { getMetaFileValue } from '../assets/pkg';
-import { getRootDir } from './fs';
-import { getModels, createPageMap, fileMatch } from './textModel';
+import { duplicateErrorMessage, getRootDir } from './fs';
+import { getModels,
+  getPages,
+  createPageMap,
+  isMasterPage,
+  isPages,
+  isPublicOrBackend,
+  findDuplicate,
+} from './textModel';
 
-export const downloadFiles = async (): Promise<void> => {
+export const downloadFiles = async ({ includePageId }: IState): Promise<void> => {
+  const pages = getPages();
+
+  if (!includePageId) {
+    const duplicate = findDuplicate(pages);
+
+    if (duplicate) {
+      return duplicateErrorMessage(duplicate);
+    }
+  }
+
   const [, rootDir] = await getRootDir();
 
   if (rootDir === null) {
     return;
   }
 
-  const srcDir = await rootDir.getChildDirectory('src');
+  const srcDir = await rootDir.getDirectory('src');
 
   const models = getModels();
-  const getPageName = createPageMap();
+  const getPageName = createPageMap(includePageId, pages);
 
   const tasks: Promise<File>[] = [
-    rootDir.writeChildFile('velofilesystemrc', getMetaFileValue()),
+    rootDir.writeFile('velofilesystemrc', getMetaFileValue()),
   ];
 
   for (const model of models) {
     const { path } = model.uri;
     const value = model.getValue();
 
-    if (fileMatch.isMasterPage(path)) {
+    if (isMasterPage(path)) {
       tasks.push(
-        srcDir.writeChildFile('masterPage.js', value),
+        srcDir.writeFile('masterPage.js', value),
       );
     }
 
-    else if (fileMatch.isPages(path)) {
-      const pages = await srcDir.getChildDirectory('pages');
+    else if (isPages(path)) {
+      const pages = await srcDir.getDirectory('pages');
 
       tasks.push(
-        pages.writeChildFile(getPageName(path), value),
+        pages.writeFile(getPageName(path), value),
       );
     }
 
-    else if (fileMatch.isPublicOrBackend(path)) {
+    else if (isPublicOrBackend(path)) {
       const paths = path.slice(1).split('/');
       const len = paths.length;
 
       let i = 0;
-      let handler: Directory = srcDir;
+      let dir: Directory = srcDir;
 
       while (i < len) {
         const name = paths[i++];
 
         if (i !== len) {
-          handler = await handler.getChildDirectory(name);
+          dir = await dir.getDirectory(name);
         } else {
           tasks.push(
-            handler.writeChildFile(name, value),
+            dir.writeFile(name, value),
           );
         }
       }

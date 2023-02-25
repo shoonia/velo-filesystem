@@ -2,13 +2,7 @@ import type { editor } from 'monaco-editor';
 import type { IPage } from '../../src/types';
 
 type IGetModels = () => editor.ITextModel[];
-type IPageMap = () => (path: string) => string;
-
-interface IFileMatch {
-  isMasterPage(path: string): boolean;
-  isPages(path: string): boolean;
-  isPublicOrBackend(path: string): boolean;
-}
+type IPageMap = (includePageId: boolean, pages: readonly IPage[]) => (path: string) => string;
 
 export const getModels: IGetModels = () => {
   const modules = window.monaco?.editor?.getModels() ?? [];
@@ -16,7 +10,7 @@ export const getModels: IGetModels = () => {
   return modules.filter((i) => i.uri.path.indexOf('@') === -1);
 };
 
-export const getPages = (): IPage[] => {
+export const getPages = (): readonly IPage[] => {
   const pages = window.editorModel?.siteHeader?.pageIdList?.pages;
 
   if (Array.isArray(pages)) {
@@ -32,13 +26,11 @@ export const getPages = (): IPage[] => {
   return [];
 };
 
-export const createPageMap: IPageMap = () => {
-  const pages = getPages();
-
+export const createPageMap: IPageMap = (includePageId, pages) => {
   const map = new Map<string, string>(
     pages.map((i) => [
       `${i.pageId}.js`,
-      `${i.title}.${i.pageId}.js`,
+      includePageId ? `${i.title}.${i.pageId}.js` : `${i.title}.js`,
     ]),
   );
 
@@ -49,16 +41,26 @@ export const createPageMap: IPageMap = () => {
   };
 };
 
-export const fileMatch: IFileMatch = {
-  isMasterPage(path): boolean {
-    return path === '/public/pages/masterPage.js';
-  },
+export const isMasterPage = (path: string): boolean => {
+  return path === '/public/pages/masterPage.js';
+};
 
-  isPages(path): boolean {
-    return path.startsWith('/public/pages/');
-  },
+export const isPages = (path: string): boolean => {
+  return path.startsWith('/public/pages/');
+};
 
-  isPublicOrBackend(path): boolean {
-    return path.startsWith('/backend/') || path.startsWith('/public/');
-  },
+export const isPublicOrBackend = (path: string): boolean => {
+  return path.startsWith('/backend/') || path.startsWith('/public/');
+};
+
+export const findDuplicate = (pages: readonly IPage[]): IPage | undefined => {
+  return pages.find((page, index) => {
+    for (let i = index + 1; i < pages.length; i++) {
+      if (pages[i].title === page.title) {
+        return true;
+      }
+    }
+
+    return false;
+  });
 };

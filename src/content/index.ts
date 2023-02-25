@@ -1,5 +1,5 @@
 import {
-  IReqMessage,
+  type IReqMessage,
   CUSTOM_EVENT_REQUEST,
   CUSTOM_EVENT_RESPONSE,
 } from '../transport';
