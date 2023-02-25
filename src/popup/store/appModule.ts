@@ -2,21 +2,21 @@ import type { TMoudule } from './types';
 import { IResMessage, ResEvents } from '../../../src/transport';
 import { onMessage } from '../../../src/chrome';
 
-const key = 'includePageId';
+const key = 'excludePageId';
 
 export const appModule: TMoudule = (store) => {
   store.on('@init', () => {
     return {
       isEnable: false,
-      includePageId: !!localStorage.getItem(key),
+      includePageId: !localStorage.getItem(key),
     };
   });
 
   store.on('toggle/includePageId', (_, includePageId) => {
     if (includePageId) {
-      localStorage.setItem(key, '1');
-    } else {
       localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, '1');
     }
 
     return {
