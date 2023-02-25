@@ -2,7 +2,7 @@ import type { editor } from 'monaco-editor';
 import type { IPage } from '../../src/types';
 
 type IGetModels = () => editor.ITextModel[];
-type IPageMap = () => (path: string) => string;
+type IPageMap = (includePageId: boolean) => (path: string) => string;
 
 interface IFileMatch {
   isMasterPage(path: string): boolean;
@@ -32,13 +32,13 @@ export const getPages = (): IPage[] => {
   return [];
 };
 
-export const createPageMap: IPageMap = () => {
+export const createPageMap: IPageMap = (includePageId) => {
   const pages = getPages();
 
   const map = new Map<string, string>(
     pages.map((i) => [
       `${i.pageId}.js`,
-      `${i.title}.${i.pageId}.js`,
+      includePageId ? `${i.title}.${i.pageId}.js` : `${i.title}.js`,
     ]),
   );
 

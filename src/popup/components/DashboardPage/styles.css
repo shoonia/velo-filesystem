@@ -8,6 +8,10 @@
   justify-content: center;
 }
 
+.fieldset {
+  border: none;
+}
+
 .btn {
   transition: all 0.2s ease;
   border-radius: 100px;
@@ -24,6 +28,12 @@
   padding: 0 25px;
   user-select: none;
   white-space: nowrap;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  padding: 1em 0;
 }
 
 .btn:hover {

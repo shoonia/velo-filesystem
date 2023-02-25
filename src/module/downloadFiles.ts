@@ -1,10 +1,11 @@
 import type { File } from './tree/File';
 import type { Directory } from './tree/Directory';
+import type { IState } from 'src/popup/store/types';
 import { getMetaFileValue } from '../assets/pkg';
 import { getRootDir } from './fs';
 import { getModels, createPageMap, fileMatch } from './textModel';
 
-export const downloadFiles = async (): Promise<void> => {
+export const downloadFiles = async ({ includePageId }: IState): Promise<void> => {
   const [, rootDir] = await getRootDir();
 
   if (rootDir === null) {
@@ -14,7 +15,7 @@ export const downloadFiles = async (): Promise<void> => {
   const srcDir = await rootDir.getChildDirectory('src');
 
   const models = getModels();
-  const getPageName = createPageMap();
+  const getPageName = createPageMap(includePageId);
 
   const tasks: Promise<File>[] = [
     rootDir.writeChildFile('velofilesystemrc', getMetaFileValue()),

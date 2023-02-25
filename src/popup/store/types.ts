@@ -2,9 +2,11 @@ import type { StoreonModule } from 'storeon-velo';
 
 export interface IState {
   readonly isEnable: boolean;
+  readonly includePageId: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface IEvents {}
+export interface IEvents {
+  'toggle/includePageId': boolean;
+}
 
 export type TMoudule = StoreonModule<IState, IEvents>;
