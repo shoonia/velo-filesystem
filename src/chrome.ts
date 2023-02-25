@@ -1,4 +1,5 @@
 /// <reference types="chrome"/>
+import type { IState } from './popup/store/types';
 import type {
   IReqMessage,
   IResMessage,
@@ -9,23 +10,23 @@ export const getURL = (path: string): string => {
   return chrome.runtime.getURL(path);
 };
 
-export const sendReqMessage = async (type: ReqEvents): Promise<void> => {
+export const sendReqMessage = async (type: ReqEvents, state: IState): Promise<void> => {
   const [tab] = await chrome.tabs.query({
     active: true,
     currentWindow: true,
   });
 
   return new Promise((resolve, reject) => {
-    if (typeof tab?.id !== 'number') {
-      return reject();
+    if (typeof tab?.id === 'number') {
+      chrome.tabs.sendMessage<IReqMessage>(tab.id, { type, state }, resolve);
+    } else {
+      reject();
     }
-
-    chrome.tabs.sendMessage<IReqMessage>(tab.id, { type }, resolve);
   });
 };
 
 export const sendResMessage = (message: IResMessage): void => {
-  void chrome.runtime.sendMessage(message);
+  chrome.runtime.sendMessage(message);
 };
 
 export const onMessage = <T extends IResMessage | IReqMessage>(
@@ -35,5 +36,5 @@ export const onMessage = <T extends IResMessage | IReqMessage>(
 };
 
 export const to = (url: string): void => {
-  void chrome.tabs.create({ url });
+  chrome.tabs.create({ url });
 };
