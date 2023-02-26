@@ -55,8 +55,10 @@ export const isPublicOrBackend = (path: string): boolean => {
 
 export const findDuplicate = (pages: readonly IPage[]): IPage | undefined => {
   return pages.find((page, index) => {
+    const title = page.title.toLowerCase();
+
     for (let i = index + 1; i < pages.length; i++) {
-      if (pages[i].title === page.title) {
+      if (pages[i].title.toLowerCase() === title) {
         return true;
       }
     }
