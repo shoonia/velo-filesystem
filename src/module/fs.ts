@@ -3,7 +3,9 @@ import { Directory } from './tree/Directory';
 
 export const getRootDir = async () => {
   try {
-    const handler = await window.showDirectoryPicker();
+    const handler = await window.showDirectoryPicker({
+      mode: 'readwrite',
+    });
 
     return [null, new Directory(handler)] as const;
   } catch (error) {
