@@ -1,10 +1,7 @@
 import type { editor } from 'monaco-editor';
 import type { IPage } from '../../src/types';
 
-type IGetModels = () => editor.ITextModel[];
-type IPageMap = (includePageId: boolean, pages: readonly IPage[]) => (path: string) => string;
-
-export const getModels: IGetModels = () => {
+export const getModels = (): readonly editor.ITextModel[] => {
   const modules = window.monaco?.editor?.getModels() ?? [];
 
   return modules.filter((i) => i.uri.path.indexOf('@') === -1);
@@ -26,7 +23,7 @@ export const getPages = (): readonly IPage[] => {
   return [];
 };
 
-export const createPageMap: IPageMap = (includePageId, pages) => {
+export const createPageMap = (includePageId: boolean, pages: readonly IPage[]) => {
   const map = new Map<string, string>(
     pages.map((i) => [
       `${i.pageId}.js`,
