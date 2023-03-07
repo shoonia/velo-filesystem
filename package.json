@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "jsx-dom-runtime": "^0.28.0",
-    "storeon-velo": "^4.1.1"
+    "storeon-velo": "^4.1.2"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.21.0",
