@@ -9,7 +9,6 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "moduleResolution": "Node",
-    "importsNotUsedAsValues": "error",
     "isolatedModules": false,
     "sourceMap": false,
     "strict": true,
