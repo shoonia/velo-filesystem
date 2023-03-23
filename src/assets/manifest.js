@@ -23,9 +23,6 @@ export const getManifest = (isProd) => ({
     '16': 'icons/velo.png',
     '48': 'icons/velo.png',
   },
-  permissions: [
-    'tabs',
-  ],
   host_permissions: [
     'https://editor.wix.com/html/editor/web/*',
     'https://create.editorx.com/edit/*',
