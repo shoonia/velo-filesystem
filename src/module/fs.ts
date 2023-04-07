@@ -18,7 +18,7 @@ export const getRootDir = async () => {
 };
 
 export const duplicateErrorMessage = (page: IPage): void => {
-  const message = `A few pages with duplicate titles - "${page.title}."\n\n` +
+  const message = `A few pages with duplicate titles - "${page.title}".\n\n` +
     'Please rename each duplicate page title and reload the browser tab or check on ✅ "Include page ID"';
 
   alert(message);
