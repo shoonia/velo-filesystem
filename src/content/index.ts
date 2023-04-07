@@ -1,9 +1,5 @@
-import {
-  type IReqMessage,
-  CUSTOM_EVENT_REQUEST,
-  CUSTOM_EVENT_RESPONSE,
-} from '../transport';
-import { getURL, onMessage, sendResMessage } from '../chrome';
+import { dispatchRequest, addResponseListener } from '../transport';
+import { getURL, onMessage, sendRespose } from '../chrome';
 
 document.body.append(
   Object.assign(document.createElement('script'), {
@@ -13,14 +9,5 @@ document.body.append(
   }),
 );
 
-window.addEventListener(CUSTOM_EVENT_RESPONSE, ({ detail }) => {
-  sendResMessage(detail);
-});
-
-onMessage<IReqMessage>((detail) => {
-  window.dispatchEvent(
-    new CustomEvent<IReqMessage>(CUSTOM_EVENT_REQUEST, {
-      detail,
-    }),
-  );
-});
+addResponseListener(sendRespose);
+onMessage(dispatchRequest);

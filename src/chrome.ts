@@ -1,16 +1,20 @@
 /// <reference types="chrome"/>
 import type { IState } from './popup/store/types';
 import type {
-  IReqMessage,
-  IResMessage,
-  ReqEvents,
+  IRequest,
+  IResponse,
+  RequestEvents,
 } from './transport';
 
 export const getURL = (path: string): string => {
   return chrome.runtime.getURL(path);
 };
 
-export const sendReqMessage = async (type: ReqEvents, state: IState): Promise<void> => {
+export const to = (url: string): void => {
+  chrome.tabs.create({ url });
+};
+
+export const sendRequest = async (type: RequestEvents, state: IState): Promise<void> => {
   const [tab] = await chrome.tabs.query({
     active: true,
     currentWindow: true,
@@ -18,23 +22,19 @@ export const sendReqMessage = async (type: ReqEvents, state: IState): Promise<vo
 
   return new Promise((resolve, reject) => {
     if (typeof tab?.id === 'number') {
-      chrome.tabs.sendMessage<IReqMessage>(tab.id, { type, state }, resolve);
+      chrome.tabs.sendMessage<IRequest>(tab.id, { type, state }, resolve);
     } else {
       reject();
     }
   });
 };
 
-export const sendResMessage = (message: IResMessage): void => {
+export const sendRespose = (message: IResponse): void => {
   chrome.runtime.sendMessage(message);
 };
 
-export const onMessage = <T extends IResMessage | IReqMessage>(
-  cb: (message?: T) => void,
+export const onMessage = <T extends IResponse | IRequest>(
+  cb: (message: T) => void,
 ): void => {
   chrome.runtime.onMessage.addListener(cb);
-};
-
-export const to = (url: string): void => {
-  chrome.tabs.create({ url });
 };

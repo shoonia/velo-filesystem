@@ -1,6 +1,10 @@
 import type { TMoudule } from './types';
-import { type IResMessage, ReqEvents, ResEvents } from '../../../src/transport';
-import { onMessage, sendReqMessage } from '../../../src/chrome';
+import {
+  type IResponse,
+  RequestEvents,
+  ResponseEvents,
+} from '../../../src/transport';
+import { onMessage, sendRequest } from '../../../src/chrome';
 
 const key = 'excludePageId';
 
@@ -13,11 +17,11 @@ export const appModule: TMoudule = (store) => {
   });
 
   store.on('@ready', (state) => {
-    sendReqMessage(ReqEvents.onmout, state);
+    sendRequest(RequestEvents.onmout, state);
   });
 
   store.on('download/file', (state) => {
-    sendReqMessage(ReqEvents.download, state);
+    sendRequest(RequestEvents.download, state);
   });
 
   store.on('toggle/includePageId', (_, includePageId) => {
@@ -32,9 +36,9 @@ export const appModule: TMoudule = (store) => {
     };
   });
 
-  onMessage<IResMessage>((message) => {
-    switch (message?.type) {
-      case ResEvents.content_loaded: {
+  onMessage<IResponse>((res) => {
+    switch (res?.type) {
+      case ResponseEvents.content_loaded: {
         return store.set({ isEnable: true });
       }
     }

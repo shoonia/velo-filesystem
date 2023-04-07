@@ -1,6 +1,6 @@
 import type {
-  IReqMessage,
-  IResMessage,
+  IRequest,
+  IResponse,
   CUSTOM_EVENT_REQUEST,
   CUSTOM_EVENT_RESPONSE,
 } from './transport';
@@ -27,7 +27,7 @@ export declare global {
   }
 
   interface WindowEventMap {
-    readonly [CUSTOM_EVENT_REQUEST]: CustomEvent<IReqMessage>;
-    readonly [CUSTOM_EVENT_RESPONSE]: CustomEvent<IResMessage>;
+    readonly [CUSTOM_EVENT_REQUEST]: CustomEvent<IRequest>;
+    readonly [CUSTOM_EVENT_RESPONSE]: CustomEvent<IResponse>;
   }
 }
