@@ -47,7 +47,7 @@ export const isPages = (path: string): boolean => {
 };
 
 export const isPublicOrBackend = (path: string): boolean => {
-  return path.startsWith('/backend/') || path.startsWith('/public/');
+  return ['/backend/', '/public/', '/styles/'].some((i) => path.startsWith(i));
 };
 
 export const findDuplicate = (pages: readonly IPage[]): IPage | undefined => {
