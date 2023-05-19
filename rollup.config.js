@@ -41,9 +41,11 @@ const plugins = [
 ]
   .filter(Boolean);
 
-fse.emptyDirSync('./build');
-fse.copySync('./static', './build');
-fse.writeJSONSync('./build/manifest.json', getManifest(isProd));
+await fse.emptyDir('./build');
+await Promise.all([
+  fse.copy('./static', './build'),
+  fse.writeJSON('./build/manifest.json', getManifest(isProd)),
+])
 
 export default [
   {
