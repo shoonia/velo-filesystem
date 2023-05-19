@@ -15,6 +15,7 @@ const includePaths = [
   '/public/folder/util.js',
   '/public/pages/sof6z.js',
   '/public/util.js',
+  '/styles/global.css',
 ];
 
 const excludePaths = [
