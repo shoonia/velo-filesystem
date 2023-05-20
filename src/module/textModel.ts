@@ -32,7 +32,7 @@ export const createPageMap = (includePageId: boolean, pages: readonly IPage[]) =
   );
 
   return (path: string): string => {
-    const name = path.split('/').pop() ?? '';
+    const name = path.split('/').at(-1) ?? '';
 
     return map.get(name) ?? name;
   };
@@ -44,10 +44,6 @@ export const isMasterPage = (path: string): boolean => {
 
 export const isPages = (path: string): boolean => {
   return path.startsWith('/public/pages/');
-};
-
-export const isPublicOrBackend = (path: string): boolean => {
-  return ['/backend/', '/public/', '/styles/'].some((i) => path.startsWith(i));
 };
 
 export const findDuplicate = (pages: readonly IPage[]): IPage | undefined => {

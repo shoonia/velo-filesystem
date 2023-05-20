@@ -1,27 +1,9 @@
-import { File } from './File';
-
 export class Directory {
   #handler: FileSystemDirectoryHandle;
   #directories: Map<string, Directory> = new Map();
-  #files: Map<string, File> = new Map();
 
   constructor(handler: FileSystemDirectoryHandle) {
     this.#handler = handler;
-  }
-
-  async #getFile(name: string): Promise<File> {
-    if (this.#files.has(name)) {
-      return this.#files.get(name) as File;
-    }
-
-    const handler = await this.#handler.getFileHandle(name, {
-      create: true,
-    });
-
-    const file = new File(handler);
-    this.#files.set(name, file);
-
-    return file;
   }
 
   async getDirectory(name: string): Promise<Directory> {
@@ -39,11 +21,14 @@ export class Directory {
     return directory;
   }
 
-  async writeFile(name: string, content: string): Promise<File> {
-    const file = await this.#getFile(name);
+  async writeFile(name: string, content: string): Promise<void> {
+    const file = await this.#handler.getFileHandle(name, {
+      create: true,
+    });
 
-    await file.write(content);
+    const writable = await file.createWritable();
 
-    return file;
+    await writable.write(content);
+    await writable.close();
   }
 }

@@ -1,4 +1,3 @@
-import type { File } from './tree/File';
 import type { Directory } from './tree/Directory';
 import type { IState } from 'src/popup/store/types';
 import { getMetaFileValue } from '../assets/pkg';
@@ -8,7 +7,6 @@ import { getModels,
   createPageMap,
   isMasterPage,
   isPages,
-  isPublicOrBackend,
   findDuplicate,
 } from './textModel';
 
@@ -34,7 +32,7 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
   const models = getModels();
   const getPageName = createPageMap(includePageId, pages);
 
-  const tasks: Promise<File>[] = [
+  const tasks: Promise<void>[] = [
     rootDir.writeFile('velofilesystemrc', getMetaFileValue()),
   ];
 
@@ -46,33 +44,35 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
       tasks.push(
         srcDir.writeFile('masterPage.js', value),
       );
+
+      continue;
     }
 
-    else if (isPages(path)) {
+    if (isPages(path)) {
       const pages = await srcDir.getDirectory('pages');
 
       tasks.push(
         pages.writeFile(getPageName(path), value),
       );
+
+      continue;
     }
 
-    else if (isPublicOrBackend(path)) {
-      const paths = path.slice(1).split('/');
-      const len = paths.length;
+    const paths = path.slice(1).split('/');
+    const len = paths.length;
 
-      let i = 0;
-      let dir: Directory = srcDir;
+    let i = 0;
+    let dir: Directory = srcDir;
 
-      while (i < len) {
-        const name = paths[i++];
+    while (i < len) {
+      const name = paths[i++];
 
-        if (i !== len) {
-          dir = await dir.getDirectory(name);
-        } else {
-          tasks.push(
-            dir.writeFile(name, value),
-          );
-        }
+      if (i !== len) {
+        dir = await dir.getDirectory(name);
+      } else {
+        tasks.push(
+          dir.writeFile(name, value),
+        );
       }
     }
   }
