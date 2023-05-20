@@ -1,7 +1,7 @@
 {
   "name": "velo-filesystem",
   "title": "Velo Filesystem",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Chrome extension for managing the virtual file system in Velo by Wix",
   "main": "src/index.js",
   "type": "module",
@@ -32,7 +32,7 @@
     "@typescript-eslint/parser": "^5.59.6",
     "babel-plugin-const-enum": "^1.2.0",
     "cross-zip": "^4.0.0",
-    "eslint": "^8.40.0",
+    "eslint": "^8.41.0",
     "fs-extra": "^11.1.1",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
