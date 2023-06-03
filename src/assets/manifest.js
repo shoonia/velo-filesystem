@@ -1,12 +1,5 @@
 /// <reference types="node" />
-import { createRequire } from 'node:module';
-const {
-  title,
-  version,
-  description,
-  author,
-  homepage,
-} = createRequire(import.meta.url)('../../package.json');
+import pkg from '../../package.json' assert { type: 'json' };
 
 /**
  * @param {boolean} isProd
@@ -14,11 +7,11 @@ const {
  */
 export const getManifest = (isProd) => ({
   manifest_version: 3,
-  name: isProd ? title : `DEV: ${title}`,
-  version,
-  description,
-  author: author.name,
-  homepage_url: homepage,
+  name: isProd ? pkg.title : `DEV: ${pkg.title}`,
+  version: pkg.version,
+  description: pkg.description,
+  author: pkg.author.name,
+  homepage_url: pkg.homepage,
   icons: {
     '16': 'icons/velo.png',
     '48': 'icons/velo.png',
