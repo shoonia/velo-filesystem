@@ -25,16 +25,13 @@ const plugins = [
     babelHelpers: 'bundled',
     extensions,
     presets: [
-      '@babel/typescript',
-      'jsx-dom-runtime/babel-preset',
-    ],
-    plugins: [
       [
-        'const-enum',
+        '@babel/preset-typescript',
         {
-          transform: 'constObject',
+          optimizeConstEnums: true,
         },
       ],
+      'jsx-dom-runtime/babel-preset',
     ],
   }),
   isProd && terser(),
