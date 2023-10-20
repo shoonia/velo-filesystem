@@ -11,7 +11,7 @@
     "lint": "tsc --noEmit && eslint 'src/**/*.{js,ts,tsx}' && stylelint 'src/**/*.css'",
     "lint:fix": "eslint 'src/**/*.{js,ts,tsx}' --fix && stylelint 'src/**/*.css' --fix",
     "zip": "npm run build && node zip.js",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest"
+    "test": "jest"
   },
   "dependencies": {
     "jsx-dom-runtime": "^0.57.1",
