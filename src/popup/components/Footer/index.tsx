@@ -1,10 +1,8 @@
-import type { FC } from 'jsx-dom-runtime';
-
 import './styles.css';
 import { to } from '../../../chrome';
 import { discussions as link, version } from '../../../assets/pkg';
 
-export const Footer: FC = () => {
+export const Footer: JSX.FC = () => {
   const handleClick: EventListener = (event) => {
     event.preventDefault();
     to(link);
