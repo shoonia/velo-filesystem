@@ -17,6 +17,7 @@ export const getManifest = (isProd) => ({
     '48': 'icons/velo.png',
   },
   host_permissions: [
+    'https://editor.wix.com/studio/*',
     'https://editor.wix.com/html/editor/web/*',
     'https://create.editorx.com/edit/*',
   ],
@@ -27,6 +28,7 @@ export const getManifest = (isProd) => ({
   content_scripts: [
     {
       matches: [
+        'https://editor.wix.com/studio/*',
         'https://editor.wix.com/html/editor/web/*',
         'https://create.editorx.com/edit/*',
       ],
