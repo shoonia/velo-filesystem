@@ -1,6 +1,4 @@
-/**
- * @type {import('@jest/types').Config.ProjectConfig}
- */
+/** @type {import('jest').Config} */
 const config = {
   roots: [
     '<rootDir>/tests',
@@ -11,7 +9,7 @@ const config = {
   transform: {
     '^.+\\.ts$': 'ts-jest',
   },
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jest-environment-jsdom'
 };
 
 export { config as default };
