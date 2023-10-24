@@ -1,9 +1,10 @@
+import { existsSync } from 'node:fs';
+import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { babel } from '@rollup/plugin-babel';
 import css from 'rollup-plugin-css-only';
 import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
-import fse from 'fs-extra';
 
 import { getManifest } from './src/assets/manifest.js';
 
@@ -38,10 +39,15 @@ const plugins = [
 ]
   .filter(Boolean);
 
-await fse.emptyDir('./build');
+const emptyDir = async (path) => {
+  if (existsSync(path)) await rm(path, { recursive: true });
+  await mkdir(path);
+};
+
+await emptyDir('./build');
 await Promise.all([
-  fse.copy('./static', './build'),
-  fse.writeJSON('./build/manifest.json', getManifest(isProd)),
+  cp('./static', './build', { recursive: true }),
+  writeFile('./build/manifest.json', getManifest(isProd)),
 ])
 
 export default [
