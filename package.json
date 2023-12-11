@@ -14,7 +14,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "jsx-dom-runtime": "^0.58.2",
+    "jsx-dom-runtime": "^0.60.0",
     "storeon-velo": "^5.0.0-rc.0"
   },
   "devDependencies": {
