@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import pkg from '../../package.json' assert { type: 'json' };
+import pkg from '../../package.json' with { type: 'json' };
 
 const urls = [
   'https://editor.wix.com/studio/*',
