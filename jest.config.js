@@ -1,5 +1,6 @@
 /** @type {import('jest').Config} */
 const config = {
+  cache: false,
   roots: [
     '<rootDir>/tests',
   ],
@@ -7,9 +8,10 @@ const config = {
     '**/**.spec.ts',
   ],
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '\\.ts$': 'babel-jest',
   },
-  testEnvironment: 'jest-environment-jsdom'
+  testEnvironment: 'jest-environment-jsdom',
+  extensionsToTreatAsEsm: ['.ts'],
 };
 
 export { config as default };
