@@ -16,8 +16,9 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "jsxImportSource": "jsx-dom-runtime",
+    "verbatimModuleSyntax": true,
     "lib": [
-      "ES2022",
+      "ES2023",
       "DOM"
     ],
   },
