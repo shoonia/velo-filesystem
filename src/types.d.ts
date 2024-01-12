@@ -1,3 +1,4 @@
+import type monaco from 'monaco-editor';
 import type {
   IRequest,
   IResponse,
@@ -19,7 +20,7 @@ interface ISiteHeader {
 
 export declare global {
   interface Window {
-    monaco?: typeof import('monaco-editor');
+    monaco?: typeof monaco;
     readonly siteHeader?: ISiteHeader;
     readonly editorModel?: {
       readonly siteHeader?: ISiteHeader;
