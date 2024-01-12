@@ -1,6 +1,6 @@
 export class Directory {
-  #handler: FileSystemDirectoryHandle;
-  #directories: Map<string, Directory> = new Map();
+  readonly #handler: FileSystemDirectoryHandle;
+  readonly #directories: Map<string, Directory> = new Map();
 
   constructor(handler: FileSystemDirectoryHandle) {
     this.#handler = handler;
