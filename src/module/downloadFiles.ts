@@ -65,9 +65,9 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
     let dir: Directory = srcDir;
 
     while (i < len) {
-      const name = paths[i++];
+      const name = paths[i];
 
-      if (i !== len) {
+      if (++i !== len) {
         dir = await dir.getDirectory(name);
       } else {
         tasks.push(

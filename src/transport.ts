@@ -21,26 +21,22 @@ export interface IResponse {
   readonly type: ResponseEvents;
 }
 
-export const dispatchResponce = (detail: IResponse): boolean => {
-  return window.dispatchEvent(
+type TDispatcer<T> = (detail: T) => boolean;
+type TListener<T> = (callback: (detail: T) => void) => void
+
+export const dispatchResponce: TDispatcer<IResponse> = (detail) =>
+  dispatchEvent(
     new CustomEvent<IResponse>(CUSTOM_EVENT_RESPONSE, { detail }),
   );
-};
 
-export const dispatchRequest = (detail: IRequest): boolean => {
-  return window.dispatchEvent(
+export const dispatchRequest: TDispatcer<IRequest> = (detail) =>
+  dispatchEvent(
     new CustomEvent<IRequest>(CUSTOM_EVENT_REQUEST, { detail }),
   );
-};
 
-export const addResponseListener = (
-  cb: (res: IResponse) => void,
-): void => {
-  window.addEventListener(CUSTOM_EVENT_RESPONSE, ({ detail }) => cb(detail));
-};
+export const addResponseListener: TListener<IResponse> = (callback) =>
+  addEventListener(CUSTOM_EVENT_RESPONSE, (event) => callback(event.detail));
 
-export const addRequestListener = (
-  cb: (req: IRequest) => void,
-): void => {
-  window.addEventListener(CUSTOM_EVENT_REQUEST, ({ detail }) => cb(detail));
-};
+
+export const addRequestListener: TListener<IRequest> = (callback) =>
+  addEventListener(CUSTOM_EVENT_REQUEST, (event) => callback(event.detail));

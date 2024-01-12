@@ -18,7 +18,9 @@ export const getManifest = (isProd) => JSON.stringify(
     name: isProd ? pkg.title : `DEV: ${pkg.title}`,
     version: pkg.version,
     description: pkg.description,
-    author: pkg.author.name,
+    author: {
+      email: pkg.author.email,
+    },
     homepage_url: pkg.homepage,
     icons: {
       '16': 'icons/velo.png',

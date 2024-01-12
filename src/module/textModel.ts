@@ -24,11 +24,15 @@ export const getPages = (): readonly IPage[] => {
 };
 
 export const createPageMap = (includePageId: boolean, pages: readonly IPage[]) => {
-  const map = new Map<string, string>(
-    pages.map((i) => [
-      `${i.pageId}.js`,
-      includePageId ? `${i.title}.${i.pageId}.js` : `${i.title}.js`,
-    ]),
+  const map = pages.reduce<Map<string, string>>(
+    (acc, i) =>
+      acc.set(
+        `${i.pageId}.js`,
+        includePageId
+          ? `${i.title}.${i.pageId}.js`
+          : `${i.title}.js`,
+      ),
+    new Map(),
   );
 
   return (path: string): string => {
