@@ -1,5 +1,5 @@
 import type { Directory } from './tree/Directory';
-import type { IState } from 'src/popup/store/types';
+import type { IState } from '../popup/store/types';
 import { getMetaFileValue } from '../assets/pkg';
 import { duplicateErrorMessage, getRootDir } from './fs';
 import { getModels,
