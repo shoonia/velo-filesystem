@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "checkJs": true,
     "baseUrl": "./",
     "rootDir": ".",
     "module": "ESNext",
@@ -12,11 +11,14 @@
     "isolatedModules": false,
     "sourceMap": false,
     "strict": true,
+    "alwaysStrict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx",
     "jsxImportSource": "jsx-dom-runtime",
     "verbatimModuleSyntax": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "lib": [
       "ES2023",
       "DOM"
