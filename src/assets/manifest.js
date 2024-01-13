@@ -2,9 +2,20 @@
 import pkg from '../../package.json' with { type: 'json' };
 
 const urls = [
+  // Wix Studio
   'https://editor.wix.com/studio/*',
+  // Wix Editor
   'https://editor.wix.com/html/editor/web/*',
+  // Wix Blocks
+  'https://blocks.wix.com/edit/blocks/*',
+  // Editor X
   'https://create.editorx.com/edit/*',
+];
+
+const matches = [
+  'https://editor.wix.com/*',
+  'https://blocks.wix.com/*',
+  'https://create.editorx.com/*',
 ];
 
 /**
@@ -45,10 +56,7 @@ export const getManifest = (isProd) => JSON.stringify(
         resources: [
           'module.js',
         ],
-        matches: [
-          'https://editor.wix.com/*',
-          'https://create.editorx.com/*',
-        ],
+        matches,
       },
     ],
   })
