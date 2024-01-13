@@ -6,12 +6,12 @@ import type {
   RequestEvents,
 } from './transport';
 
-export const getURL = (path: string): string => {
+export const getURL = (path: string) => {
   return chrome.runtime.getURL(path);
 };
 
-export const to = (url: string): void => {
-  chrome.tabs.create({ url });
+export const to = (url: string) => {
+  return chrome.tabs.create({ url });
 };
 
 export const sendRequest = async (type: RequestEvents, state: IState): Promise<void> => {
@@ -29,12 +29,12 @@ export const sendRequest = async (type: RequestEvents, state: IState): Promise<v
   });
 };
 
-export const sendRespose = (message: IResponse): void => {
-  chrome.runtime.sendMessage(message);
+export const sendRespose = (message: IResponse) => {
+  return chrome.runtime.sendMessage(message);
 };
 
 export const onMessage = <T extends IResponse | IRequest>(
   cb: (message: T) => void,
 ): void => {
-  chrome.runtime.onMessage.addListener(cb);
+  return chrome.runtime.onMessage.addListener(cb);
 };
