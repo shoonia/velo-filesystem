@@ -1,4 +1,3 @@
-/// <reference types="chrome"/>
 import type { IState } from './popup/store/types';
 import type {
   IRequest,

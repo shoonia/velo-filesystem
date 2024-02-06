@@ -18,7 +18,7 @@ interface ISiteHeader {
   }
 }
 
-export declare global {
+declare global {
   interface Window {
     monaco?: typeof monaco;
     readonly siteHeader?: ISiteHeader;

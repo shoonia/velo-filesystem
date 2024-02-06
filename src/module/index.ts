@@ -1,4 +1,3 @@
-/// <reference types="wicg-file-system-access"/>
 import {
   RequestEvents,
   ResponseEvents,

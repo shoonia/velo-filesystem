@@ -1,4 +1,3 @@
-/// <reference types="jest"/>
 import type { editor } from 'monaco-editor';
 
 type IMockModels = (paths: string[]) => () => void;
