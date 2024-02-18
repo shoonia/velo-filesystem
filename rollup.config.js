@@ -39,9 +39,6 @@ const plugins = [
     ecma: 2020,
     module: true,
     toplevel: true,
-    parse: {
-      ecma: 2020,
-    },
     compress: {
       ecma: 2020,
       module: true,
@@ -51,10 +48,7 @@ const plugins = [
       passes: 3,
       toplevel: true,
       pure_getters: true,
-    },
-    output: {
-      ecma: 2020,
-      comments: false,
+      unsafe_arrows: true,
     },
   }),
 ]
