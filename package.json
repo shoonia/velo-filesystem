@@ -14,7 +14,7 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest"
   },
   "dependencies": {
-    "jsx-dom-runtime": "^0.60.0",
+    "jsx-dom-runtime": "^0.64.1",
     "storeon-velo": "^5.0.0-rc.5"
   },
   "devDependencies": {
