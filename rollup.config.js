@@ -47,6 +47,7 @@ const plugins = [
       drop_console: true,
       passes: 3,
       toplevel: true,
+      unsafe: true,
       pure_getters: true,
       unsafe_arrows: true,
     },

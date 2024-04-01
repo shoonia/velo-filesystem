@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "rootDir": ".",
     "module": "ESNext",
-    "target": "ES2022",
+    "target": "ESNext",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "noEmit": true,
@@ -20,7 +20,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "lib": [
-      "ES2023",
+      "ESNext",
       "DOM"
     ],
   },
