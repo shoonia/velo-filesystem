@@ -1,10 +1,9 @@
 import type { editor } from 'monaco-editor';
 
-type IMockModels = (paths: string[]) => () => void;
-
-export const createModelsMock: IMockModels = (paths) => {
-  Object.assign(window, {
+export const createModelsMock = (paths: string[]) => {
+  globalThis.window = {
     monaco: {
+      // @ts-expect-error @typescript-eslint/ban-ts-comment
       editor: {
         getModels() {
           return paths.map(
@@ -15,9 +14,5 @@ export const createModelsMock: IMockModels = (paths) => {
         },
       },
     },
-  });
-
-  return () => {
-    delete window.monaco;
   };
 };

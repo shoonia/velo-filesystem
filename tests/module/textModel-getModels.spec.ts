@@ -1,6 +1,8 @@
-import { createModelsMock } from '../mocks';
+import { describe, it } from 'node:test';
+import { deepStrictEqual } from 'node:assert/strict';
 
-import { getModels } from '../../src/module/textModel';
+import { createModelsMock } from '../mocks.js';
+import { getModels } from '../../src/module/textModel.js';
 
 const includePaths = [
   '/backend/http-functions.js',
@@ -26,14 +28,13 @@ const excludePaths = [
 
 describe('getModels', () => {
   it('should return only the user\'s visible models', () => {
-    const dropMock = createModelsMock([
+    createModelsMock([
       ...includePaths,
       ...excludePaths,
     ]);
 
     const reslut = getModels().map((i) => i.uri.path);
 
-    dropMock();
-    expect(reslut).toEqual(includePaths);
+    deepStrictEqual(reslut, includePaths);
   });
 });
