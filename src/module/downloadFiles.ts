@@ -41,8 +41,10 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
     const value = model.getValue();
 
     if (isMasterPage(path)) {
+      const pages = await srcDir.getDirectory('pages');
+
       tasks.push(
-        srcDir.writeFile('masterPage.js', value),
+        pages.writeFile('masterPage.js', value),
       );
 
       continue;
