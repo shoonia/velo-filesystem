@@ -1,4 +1,4 @@
-import { useRef, type RefCallback } from 'jsx-dom-runtime';
+import { useRef } from 'jsx-dom-runtime';
 
 import './styles.css';
 import { connect, dispatch } from '../../store';
@@ -12,7 +12,7 @@ export const DashboardPage: JSX.FC = () => {
   const downloadFiles: EventListener = () =>
     dispatch('download/file');
 
-  const ready: RefCallback<HTMLFieldSetElement> = (fieldset) => {
+  const ready: JSX.Ref<HTMLFieldSetElement> = (fieldset) => {
     connect('includePageId', (state) => {
       refCheckBox.current.checked = state.includePageId;
     });
