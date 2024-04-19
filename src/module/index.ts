@@ -1,6 +1,6 @@
 import {
-  RequestEvents,
-  ResponseEvents,
+  REQUEST,
+  RESPONSE,
   addRequestListener,
   dispatchResponce,
 } from '../transport';
@@ -8,13 +8,13 @@ import { downloadFiles } from './downloadFiles';
 
 addRequestListener((req) => {
   switch (req?.type) {
-    case RequestEvents.onmout: {
+    case REQUEST.READY: {
       return dispatchResponce({
-        type: ResponseEvents.content_loaded,
+        type: RESPONSE.LOADED,
       });
     }
 
-    case RequestEvents.download: {
+    case REQUEST.DOWNLOAD: {
       return downloadFiles(req.state);
     }
   }

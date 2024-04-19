@@ -2,8 +2,7 @@ import type monaco from 'monaco-editor';
 import type {
   IRequest,
   IResponse,
-  CUSTOM_EVENT_REQUEST,
-  CUSTOM_EVENT_RESPONSE,
+  CUSTOM_EVENT,
 } from './transport';
 
 interface IPage {
@@ -28,7 +27,7 @@ declare global {
   }
 
   interface WindowEventMap {
-    readonly [CUSTOM_EVENT_REQUEST]: CustomEvent<IRequest>;
-    readonly [CUSTOM_EVENT_RESPONSE]: CustomEvent<IResponse>;
+    readonly [CUSTOM_EVENT.REQUEST]: CustomEvent<IRequest>;
+    readonly [CUSTOM_EVENT.RESPONSE]: CustomEvent<IResponse>;
   }
 }
