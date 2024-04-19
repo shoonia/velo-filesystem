@@ -1,5 +1,5 @@
 import type { IPage } from '../types';
-import { Directory } from './tree/Directory';
+import { Directory } from './Directory';
 
 export const getRootDir = async () => {
   try {
