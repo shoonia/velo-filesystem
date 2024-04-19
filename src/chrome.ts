@@ -2,7 +2,7 @@ import type { IState } from './popup/store/types';
 import type {
   IRequest,
   IResponse,
-  RequestEvents,
+  REQUEST,
 } from './transport';
 
 export const getURL = (path: string) => {
@@ -13,7 +13,7 @@ export const to = (url: string) => {
   return chrome.tabs.create({ url });
 };
 
-export const sendRequest = async (type: RequestEvents, state: IState): Promise<void> => {
+export const sendRequest = async (type: REQUEST, state: IState): Promise<void> => {
   const [tab] = await chrome.tabs.query({
     active: true,
     currentWindow: true,

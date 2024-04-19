@@ -1,8 +1,8 @@
 import type { TMoudule } from './types';
 import {
   type IResponse,
-  RequestEvents,
-  ResponseEvents,
+  REQUEST,
+  RESPONSE,
 } from '../../../src/transport';
 import { onMessage, sendRequest } from '../../../src/chrome';
 
@@ -17,11 +17,11 @@ export const appModule: TMoudule = (store) => {
   });
 
   store.on('@ready', (state) => {
-    sendRequest(RequestEvents.onmout, state);
+    sendRequest(REQUEST.READY, state);
   });
 
   store.on('download/file', (state) => {
-    sendRequest(RequestEvents.download, state);
+    sendRequest(REQUEST.DOWNLOAD, state);
   });
 
   store.on('toggle/includePageId', (_, includePageId) => {
@@ -38,7 +38,7 @@ export const appModule: TMoudule = (store) => {
 
   onMessage<IResponse>((res) => {
     switch (res?.type) {
-      case ResponseEvents.content_loaded: {
+      case RESPONSE.LOADED: {
         return store.set({ isEnable: true });
       }
     }
