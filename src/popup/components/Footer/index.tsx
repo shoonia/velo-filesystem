@@ -15,7 +15,7 @@ export const Footer: JSX.FC = () => {
       </span>
       <a
         href={link}
-        onclick={handleClick}
+        on:click={handleClick}
         class="feedback"
       >
         Feedback
