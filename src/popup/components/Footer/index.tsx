@@ -3,7 +3,7 @@ import { to } from '../../../chrome';
 import { discussions as link, version } from '../../../assets/pkg';
 
 export const Footer: JSX.FC = () => {
-  const handleClick: EventListener = (event) => {
+  const handleClick: JSX.EventListener = (event) => {
     event.preventDefault();
     to(link);
   };

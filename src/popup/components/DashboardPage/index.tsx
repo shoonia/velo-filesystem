@@ -6,10 +6,10 @@ import { connect, dispatch } from '../../store';
 export const DashboardPage: JSX.FC = () => {
   const refCheckBox = useRef<HTMLInputElement>();
 
-  const check: EventListener = () =>
+  const check: JSX.EventListener = () =>
     dispatch('toggle/includePageId', refCheckBox.current.checked);
 
-  const downloadFiles: EventListener = () =>
+  const downloadFiles: JSX.EventListener = () =>
     dispatch('download/file');
 
   const ready: JSX.Ref<HTMLFieldSetElement> = (fieldset) => {
