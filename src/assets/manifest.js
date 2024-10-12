@@ -58,5 +58,5 @@ export const getManifest = (isProd) => JSON.stringify(
         matches,
       },
     ],
-  })
+  }),
 );
