@@ -64,7 +64,7 @@ await emptyDir('./build');
 await Promise.all([
   cp('./static', './build', { recursive: true }),
   writeFile('./build/manifest.json', getManifest(isProd)),
-])
+]);
 
 export default [
   {

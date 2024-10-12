@@ -39,6 +39,5 @@ export const dispatchRequest: TDispatcer<IRequest> = (detail) =>
 export const addResponseListener: TListener<IResponse> = (callback) =>
   addEventListener(CUSTOM_EVENT.RESPONSE, (event) => callback(event.detail));
 
-
 export const addRequestListener: TListener<IRequest> = (callback) =>
   addEventListener(CUSTOM_EVENT.REQUEST, (event) => callback(event.detail));
