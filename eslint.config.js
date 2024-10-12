@@ -2,22 +2,12 @@ import js from '@eslint/js';
 import ts from 'typescript-eslint';
 
 export default ts.config(
-  {
-    ignores: [
-      'node_modules/*',
-      'build',
-      '!src/*.js',
-    ],
-  },
   js.configs.recommended,
   ...ts.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: 2024,
       sourceType: 'module',
-      globals: {
-        process: 'readonly',
-      },
     },
     rules: {
       '@typescript-eslint/no-unsafe-member-access': 'off',
