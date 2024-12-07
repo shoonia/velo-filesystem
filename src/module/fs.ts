@@ -7,19 +7,17 @@ export const getRootDir = async () => {
       mode: 'readwrite',
     });
 
-    return [null, new Directory(handler)] as const;
+    return new Directory(handler);
   } catch (error) {
     if (error instanceof DOMException) {
-      return [error, null] as const;
+      return;
     }
 
     throw error;
   }
 };
 
-export const duplicateErrorMessage = (page: IPage): void => {
-  const message = `A few pages with duplicate titles - "${page.title}".\n\n` +
-    'Please rename each duplicate page title and reload the browser tab or check on ✅ "Include page ID"';
-
-  alert(message);
-};
+export const duplicateErrorMessage = (page: IPage) => alert(
+  `A few pages with duplicate titles - "${page.title}".\n\n` +
+  'Please rename each duplicate page title and reload the browser tab or check on ✅ "Include page ID"',
+);

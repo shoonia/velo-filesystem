@@ -21,9 +21,9 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
     }
   }
 
-  const [, rootDir] = await getRootDir();
+  const rootDir = await getRootDir();
 
-  if (rootDir === null) {
+  if (rootDir == null) {
     return;
   }
 

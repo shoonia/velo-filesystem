@@ -8,7 +8,7 @@ export class Directory {
 
   async getDirectory(name: string): Promise<Directory> {
     if (this.#directories.has(name)) {
-      return this.#directories.get(name) as Directory;
+      return this.#directories.get(name)!;
     }
 
     const handler = await this.#handler.getDirectoryHandle(name, {
