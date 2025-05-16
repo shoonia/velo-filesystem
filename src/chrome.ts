@@ -19,13 +19,9 @@ export const sendRequest = async (type: REQUEST, state: IState): Promise<void> =
     currentWindow: true,
   });
 
-  return new Promise((resolve, reject) => {
-    if (typeof tab?.id === 'number') {
-      chrome.tabs.sendMessage<IRequest>(tab.id, { type, state }, resolve);
-    } else {
-      reject();
-    }
-  });
+  if (typeof tab?.id === 'number') {
+    await chrome.tabs.sendMessage<IRequest>(tab.id, { type, state });
+  }
 };
 
 export const sendRespose = (message: IResponse) => {
