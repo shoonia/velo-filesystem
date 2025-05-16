@@ -7,14 +7,11 @@ const urls = [
   'https://editor.wix.com/html/editor/web/*',
   // Wix Blocks
   'https://blocks.wix.com/edit/blocks/*',
-  // Editor X
-  'https://create.editorx.com/edit/*',
 ];
 
 const matches = [
   'https://editor.wix.com/*',
   'https://blocks.wix.com/*',
-  'https://create.editorx.com/*',
 ];
 
 /**
