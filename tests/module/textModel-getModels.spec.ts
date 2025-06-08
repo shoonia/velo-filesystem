@@ -1,8 +1,8 @@
 import { describe, it } from 'node:test';
 import { deepStrictEqual } from 'node:assert/strict';
 
-import { createModelsMock } from '../mocks.js';
-import { getModels } from '../../src/module/textModel.js';
+import { createModelsMock } from '../mocks.ts';
+import { getModels } from '../../src/module/textModel.ts';
 
 const includePaths = [
   '/backend/http-functions.js',

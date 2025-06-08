@@ -19,6 +19,7 @@
     "verbatimModuleSyntax": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "allowImportingTsExtensions": true,
     "lib": [
       "ESNext",
       "DOM"
