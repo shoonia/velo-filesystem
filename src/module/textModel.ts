@@ -51,14 +51,16 @@ export const isPages = (path: string): boolean => {
 };
 
 export const findDuplicate = (pages: readonly IPage[]): IPage | undefined => {
-  return pages.find((page, index) => {
+  const seen = new Set<string>();
+
+  return pages.find((page) => {
     const title = page.title.toLowerCase();
 
-    for (let i = index + 1; i < pages.length; i++) {
-      if (pages[i].title.toLowerCase() === title) {
-        return true;
-      }
+    if (seen.has(title)) {
+      return true;
     }
+
+    seen.add(title);
 
     return false;
   });
