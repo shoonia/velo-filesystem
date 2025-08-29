@@ -20,13 +20,6 @@ export default ts.config(
       'no-else-return': 'error',
       'no-trailing-spaces': 'error',
       'no-use-before-define': 'off',
-      'indent': [
-        'error',
-        2,
-        {
-          'SwitchCase': 1,
-        },
-      ],
       'semi': [
         'error',
         'always',
