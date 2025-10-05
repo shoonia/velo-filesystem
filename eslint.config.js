@@ -1,10 +1,11 @@
+import { defineConfig } from '@eslint/config-helpers';
 import js from '@eslint/js';
 import ts from 'typescript-eslint';
 import jsx from 'jsx-dom-runtime/eslint-plugin';
 
-export default ts.config(
+export default defineConfig(
   js.configs.recommended,
-  ...ts.configs.recommended,
+  ts.configs.recommended,
   jsx,
   {
     languageOptions: {
@@ -20,7 +21,7 @@ export default ts.config(
       'no-else-return': 'error',
       'no-trailing-spaces': 'error',
       'no-use-before-define': 'off',
-      'semi': [
+      semi: [
         'error',
         'always',
       ],
@@ -37,7 +38,7 @@ export default ts.config(
         'always-multiline',
       ],
       'no-unused-vars': 'off',
-      'quotes': [
+      quotes: [
         'error',
         'single',
       ],

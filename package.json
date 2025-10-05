@@ -14,28 +14,28 @@
     "test": "NODE_NO_WARNINGS=1 node --experimental-strip-types --test tests/**/*.spec.ts"
   },
   "dependencies": {
-    "jsx-dom-runtime": "^0.76.0",
+    "jsx-dom-runtime": "^0.77.0",
     "storeon-velo": "^5.0.0"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.27.1",
-    "@eslint/js": "^9.34.0",
+    "@eslint/js": "^9.37.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-node-resolve": "^16.0.2",
     "@rollup/plugin-terser": "^0.4.4",
-    "@types/chrome": "^0.1.4",
-    "@types/node": "^24.3.0",
-    "@types/wicg-file-system-access": "^2023.10.6",
+    "@types/chrome": "^0.1.22",
+    "@types/node": "^24.6.2",
+    "@types/wicg-file-system-access": "^2023.10.7",
     "cross-zip": "^4.0.1",
-    "eslint": "^9.34.0",
-    "monaco-editor": "^0.52.2",
-    "rollup": "^4.49.0",
-    "rollup-plugin-css-only": "^4.5.2",
-    "stylelint": "^16.23.1",
+    "eslint": "^9.37.0",
+    "monaco-editor": "^0.53.0",
+    "rollup": "^4.52.4",
+    "rollup-plugin-css-only": "^4.5.5",
+    "stylelint": "^16.25.0",
     "stylelint-config-standard": "^39.0.0",
-    "typescript": "^5.9.2",
-    "typescript-eslint": "^8.41.0"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.45.0"
   },
   "homepage": "https://github.com/shoonia/velo-filesystem",
   "discussions": "https://github.com/shoonia/velo-filesystem/discussions",
@@ -45,5 +45,6 @@
     "url": "https://x.com/_shoonia"
   },
   "private": false,
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "yarn@3.8.7+sha512.bbe7e310ff7fd20dc63b111110f96fe18192234bb0d4f10441fa6b85d2b644c8923db8fbe6d7886257ace948440ab1f83325ad02af457a1806cdc97f03d2508e"
 }
