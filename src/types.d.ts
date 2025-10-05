@@ -6,9 +6,8 @@ import type {
 } from './transport';
 
 interface IPage {
-  readonly pageId: string;
+  readonly id: string;
   readonly title: string;
-  readonly pageJsonFileName: string;
 }
 
 interface ISiteHeader {
@@ -19,11 +18,9 @@ interface ISiteHeader {
 
 declare global {
   interface Window {
-    monaco?: typeof monaco;
-    readonly siteHeader?: ISiteHeader;
-    readonly editorModel?: {
-      readonly siteHeader?: ISiteHeader;
-    }
+    readonly monaco?: typeof monaco;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    readonly wixCodeRepluggableAppDebug?: any;
   }
 
   interface WindowEventMap {

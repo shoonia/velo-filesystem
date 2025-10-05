@@ -7,18 +7,27 @@ export const getModels = (): readonly editor.ITextModel[] => {
   return modules.filter((i) => i.uri.path.indexOf('@') === -1);
 };
 
-export const getPages = (): readonly IPage[] => {
-  const pages = window.editorModel?.siteHeader?.pageIdList?.pages;
+export const getPages = (): IPage[] => {
+  try {
+    const relpuggable = window.wixCodeRepluggableAppDebug;
+    const apis = relpuggable?.readyAPIs;
 
-  if (Array.isArray(pages)) {
-    return pages;
-  }
+    if (apis instanceof Set) {
+      for (const key of apis) {
+        if (key?.name === 'wix-code editor adapter') {
+          const pages = relpuggable?.host?.getAPI?.(key)?.editorAPI?.pages;
 
-  const pages2 = window.siteHeader?.pageIdList?.pages;
-
-  if (Array.isArray(pages2)) {
-    return pages2;
-  }
+          if (typeof pages?.getPagesData === 'function') {
+            return pages.getPagesData()?.map((i: IPage) => ({
+              id: i.id,
+              title: i.title,
+            })) ?? [];
+          }
+          break;
+        }
+      }
+    }
+  } catch { /**/ }
 
   return [];
 };
@@ -27,9 +36,9 @@ export const createPageMap = (includePageId: boolean, pages: readonly IPage[]) =
   const map = pages.reduce<Map<string, string>>(
     (acc, i) =>
       acc.set(
-        `${i.pageId}.js`,
+        `${i.id}.js`,
         includePageId
-          ? `${i.title}.${i.pageId}.js`
+          ? `${i.title}.${i.id}.js`
           : `${i.title}.js`,
       ),
     new Map(),
