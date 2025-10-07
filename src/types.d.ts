@@ -10,12 +10,6 @@ interface IPage {
   readonly title: string;
 }
 
-interface ISiteHeader {
-  readonly pageIdList?: {
-    readonly pages?: IPage[];
-  }
-}
-
 declare global {
   interface Window {
     readonly monaco?: typeof monaco;

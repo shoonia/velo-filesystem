@@ -15,15 +15,10 @@ export const getPages = (): IPage[] => {
     if (apis instanceof Set) {
       for (const key of apis) {
         if (key?.name === 'wix-code editor adapter') {
-          const pages = relpuggable?.host?.getAPI?.(key)?.editorAPI?.pages;
-
-          if (typeof pages?.getPagesData === 'function') {
-            return pages.getPagesData()?.map((i: IPage) => ({
-              id: i.id,
-              title: i.title,
-            })) ?? [];
-          }
-          break;
+          return relpuggable.host?.getAPI?.(key)?.editorAPI?.pages?.getPagesData?.()?.map?.((i: IPage) => ({
+            id: i.id,
+            title: i.title,
+          })) ?? [];
         }
       }
     }

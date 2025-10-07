@@ -5,8 +5,9 @@ import { babel } from '@rollup/plugin-babel';
 import css from 'rollup-plugin-css-only';
 import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
+import type { InputPluginOption, RollupOptions, Plugin } from 'rollup';
 
-import { getManifest } from './src/assets/manifest.js';
+import { getManifest } from './src/assets/manifest.ts';
 
 const isProd = !process.env.ROLLUP_WATCH;
 const extensions = [
@@ -14,7 +15,7 @@ const extensions = [
   '.tsx',
 ];
 
-const plugins = [
+const plugins: InputPluginOption = [
   nodeResolve({
     extensions,
     browser: true,
@@ -55,7 +56,7 @@ const plugins = [
 ]
   .filter(Boolean);
 
-const emptyDir = async (path) => {
+const emptyDir = async (path: string) => {
   if (existsSync(path)) await rm(path, { recursive: true });
   await mkdir(path);
 };
@@ -66,7 +67,7 @@ await Promise.all([
   writeFile('./build/manifest.json', getManifest(isProd)),
 ]);
 
-export default [
+const config: RollupOptions[] = [
   {
     input: './src/popup/main.tsx',
     output: {
@@ -76,7 +77,7 @@ export default [
     plugins: [
       css({
         output: 'popup.css',
-      }),
+      }) as Plugin,
       ...plugins,
     ],
   },
@@ -97,3 +98,5 @@ export default [
     plugins,
   },
 ];
+
+export default config;

@@ -14,13 +14,8 @@ const matches = [
   'https://blocks.wix.com/*',
 ];
 
-/**
- * @param {boolean} isProd
- * @returns {string}
- */
-export const getManifest = (isProd) => JSON.stringify(
-  /**@type {chrome.runtime.ManifestV3} */
-  ({
+export const getManifest = (isProd: boolean) => {
+  const manifest: chrome.runtime.ManifestV3 = {
     manifest_version: 3,
     name: isProd ? pkg.title : `DEV: ${pkg.title}`,
     version: pkg.version,
@@ -55,5 +50,7 @@ export const getManifest = (isProd) => JSON.stringify(
         matches,
       },
     ],
-  }),
-);
+  };
+
+  return JSON.stringify(manifest);
+};
