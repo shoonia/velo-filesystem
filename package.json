@@ -1,10 +1,11 @@
 {
   "name": "velo-filesystem",
   "title": "Velo Filesystem",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Chrome extension for managing the virtual file system in Velo by Wix",
   "main": "src/index.js",
   "type": "module",
+  "packageManager": "^npm@11.5.1",
   "scripts": {
     "start": "NODE_NO_WARNINGS=1 rollup -c -w",
     "build": "NODE_NO_WARNINGS=1 rollup -c",
@@ -46,6 +47,5 @@
     "url": "https://x.com/_shoonia"
   },
   "private": false,
-  "license": "MIT",
-  "packageManager": "yarn@3.8.7+sha512.bbe7e310ff7fd20dc63b111110f96fe18192234bb0d4f10441fa6b85d2b644c8923db8fbe6d7886257ace948440ab1f83325ad02af457a1806cdc97f03d2508e"
+  "license": "MIT"
 }
