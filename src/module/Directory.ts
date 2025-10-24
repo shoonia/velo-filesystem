@@ -28,7 +28,14 @@ export class Directory {
 
     const writable = await file.createWritable();
 
-    await writable.write(content);
+    /**
+     * Normalize line endings to LF to avoid CRLF vs LF diffs when files
+     * are downloaded on Windows (CRLF) but committed/used on Unix (LF).
+     * Convert CRLF -> LF
+     */
+    const normalized = content.replaceAll(/\r\n/g, '\n');
+
+    await writable.write(normalized);
     await writable.close();
   }
 }
