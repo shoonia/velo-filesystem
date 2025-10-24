@@ -2,7 +2,8 @@ import type { Directory } from './Directory';
 import type { IState } from '../popup/store/types';
 import { getMetaFileValue } from '../assets/pkg';
 import { duplicateErrorMessage, getRootDir } from './fs';
-import { getModels,
+import {
+  getModels,
   getPages,
   createPageMap,
   isMasterPage,
