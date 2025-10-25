@@ -1,7 +1,7 @@
 {
   "name": "velo-filesystem",
   "title": "Velo Filesystem",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Chrome extension for managing the virtual file system in Velo by Wix",
   "main": "src/index.js",
   "type": "module",
@@ -31,7 +31,7 @@
     "@types/wicg-file-system-access": "^2023.10.7",
     "cross-zip": "^4.0.1",
     "eslint": "^9.38.0",
-    "monaco-editor": "^0.53.0",
+    "monaco-editor": "^0.54.0",
     "rollup": "^4.52.5",
     "rollup-plugin-css-only": "^4.5.5",
     "stylelint": "^16.25.0",
