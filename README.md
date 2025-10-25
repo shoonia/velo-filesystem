@@ -9,7 +9,7 @@ Alpha: [Chrome Web Store](https://chrome.google.com/webstore/detail/velo-filesys
 ## TODO:
 
 - [ ] File System integration
-  - [x] [Download files from Velo Editor to local file system](https://shoonia.site/velo-filesystem-chrome-extension/)
+  - [x] [Download files from Velo Editor to local file system](https://shoonia.netlify.app/velo-filesystem-chrome-extension/)
   - [ ] Upload files from local file system to Velo Editor
 
 - [ ] Rebase mode
