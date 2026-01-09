@@ -15,7 +15,7 @@
     "test": "NODE_NO_WARNINGS=1 node --experimental-strip-types --test tests/**/*.spec.ts"
   },
   "dependencies": {
-    "jsx-dom-runtime": "^0.78.0",
+    "jsx-dom-runtime": "^0.79.1",
     "storeon-velo": "^5.0.0"
   },
   "devDependencies": {
