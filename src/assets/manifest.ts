@@ -2,16 +2,15 @@ import pkg from '../../package.json' with { type: 'json' };
 
 const urls = [
   // Wix Studio
-  'https://editor.wix.com/studio/*',
+  'https://*.wix.com/studio/*',
   // Wix Editor
-  'https://editor.wix.com/html/editor/web/*',
+  'https://*.wix.com/html/editor/web/*',
   // Wix Blocks
-  'https://blocks.wix.com/edit/blocks/*',
+  'https://*.wix.com/edit/blocks/*',
 ];
 
 const matches = [
-  'https://editor.wix.com/*',
-  'https://blocks.wix.com/*',
+  'https://*.wix.com/*',
 ];
 
 export const getManifest = (isProd: boolean) => {
