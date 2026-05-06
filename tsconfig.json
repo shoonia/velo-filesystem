@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "rootDir": ".",
     "module": "ESNext",
     "target": "ESNext",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "noEmit": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "isolatedModules": false,
     "sourceMap": false,
     "strict": true,
@@ -24,6 +23,10 @@
       "ESNext",
       "DOM"
     ],
+    "types": [
+      "chrome",
+      "wicg-file-system-access"
+    ]
   },
   "ts-node": {
     "esm": true,
