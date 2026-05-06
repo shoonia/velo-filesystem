@@ -24,6 +24,7 @@
       "DOM"
     ],
     "types": [
+      "node",
       "chrome",
       "wicg-file-system-access"
     ]
