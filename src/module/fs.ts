@@ -17,6 +17,22 @@ export const getRootDir = async () => {
   }
 };
 
+const MAX_LISTED_ERRORS = 10;
+
+export const writeErrorMessage = (errors: readonly string[]) => {
+  const listed = errors.slice(0, MAX_LISTED_ERRORS);
+  const rest = errors.length - listed.length;
+
+  return alert(
+    `${errors.length} file(s) could not be saved:\n\n` +
+    listed.join('\n') +
+    (rest > 0 ? `\n...and ${rest} more` : '') +
+    '\n\nThe selected folder may be read-only, or a page title may contain ' +
+    'characters that cannot be used in a file name. Note that the files listed ' +
+    'above were left unchanged - any older copy on disk is still there.',
+  );
+};
+
 export const duplicateErrorMessage = (page: IPage) => alert(
   `Multiple pages share the same title: "${page.title}".\n\n` +
   'This can cause files to overwrite when saved. To fix this:\n\n' +
