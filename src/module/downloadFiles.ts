@@ -1,7 +1,7 @@
 import type { Directory } from './Directory';
 import type { IState } from '../popup/store/types';
 import { getMetaFileValue } from '../assets/pkg';
-import { duplicateErrorMessage, getRootDir } from './fs';
+import { duplicateErrorMessage, getRootDir, writeErrorMessage } from './fs';
 import {
   getModels,
   getPages,
@@ -33,9 +33,23 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
   const models = getModels();
   const getPageName = createPageMap(includePageId, pages);
 
-  const tasks: Promise<void>[] = [
-    rootDir.writeFile('velofilesystemrc', getMetaFileValue()),
-  ];
+  const tasks: Promise<void>[] = [];
+  const errors: string[] = [];
+
+  /**
+   * A failed write must not take the whole download down with it, but it must
+   * not pass unnoticed either: `getFileHandle()` rejects before the file is
+   * opened, so the stale copy on disk survives and looks freshly downloaded.
+   */
+  const write = (dir: Directory, name: string, value: string): void => {
+    tasks.push(
+      dir.writeFile(name, value).catch((error: unknown) => {
+        errors.push(`${name} - ${error instanceof Error ? error.message : String(error)}`);
+      }),
+    );
+  };
+
+  write(rootDir, 'velofilesystemrc', getMetaFileValue());
 
   for (const model of models) {
     const { path } = model.uri;
@@ -44,9 +58,7 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
     if (isMasterPage(path)) {
       const pages = await srcDir.getDirectory('pages');
 
-      tasks.push(
-        pages.writeFile('masterPage.js', value),
-      );
+      write(pages, 'masterPage.js', value);
 
       continue;
     }
@@ -54,9 +66,7 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
     if (isPages(path)) {
       const pages = await srcDir.getDirectory('pages');
 
-      tasks.push(
-        pages.writeFile(getPageName(path), value),
-      );
+      write(pages, getPageName(path), value);
 
       continue;
     }
@@ -73,12 +83,14 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
       if (++i !== len) {
         dir = await dir.getDirectory(name);
       } else {
-        tasks.push(
-          dir.writeFile(name, value),
-        );
+        write(dir, name, value);
       }
     }
   }
 
   await Promise.all(tasks);
+
+  if (errors.length > 0) {
+    writeErrorMessage(errors);
+  }
 };
