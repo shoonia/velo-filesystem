@@ -7,26 +7,6 @@ export const getModels = (): readonly editor.ITextModel[] => {
   return modules.filter((i) => i.uri.path.indexOf('@') === -1);
 };
 
-export const getPages = (): IPage[] => {
-  try {
-    const relpuggable = window.wixCodeRepluggableAppDebug;
-    const apis = relpuggable?.readyAPIs;
-
-    if (apis instanceof Set) {
-      for (const key of apis) {
-        if (key?.name === 'wix-code editor adapter') {
-          return relpuggable.host?.getAPI?.(key)?.editorAPI?.pages?.getPagesData?.()?.map?.((i: IPage) => ({
-            id: i.id,
-            title: i.title,
-          })) ?? [];
-        }
-      }
-    }
-  } catch { /**/ }
-
-  return [];
-};
-
 /**
  * Characters that are not allowed in a file name. The File System Access API
  * rejects a path component containing any of these, so a page title that has
@@ -57,13 +37,31 @@ export const toSafeFileName = (title: string): string => {
   return RESERVED_NAME.test(name.split('.')[0]) ? `_${name}` : name;
 };
 
+export const getPages = (): IPage[] => {
+  try {
+    const relpuggable = window.wixCodeRepluggableAppDebug;
+    const apis = relpuggable?.readyAPIs;
+
+    if (apis instanceof Set) {
+      for (const key of apis) {
+        if (key?.name === 'wix-code editor adapter') {
+          return relpuggable.host?.getAPI?.(key)?.editorAPI?.pages?.getPagesData?.()?.map?.((i: IPage) => ({
+            id: i.id,
+            title: toSafeFileName(i.title),
+          })) ?? [];
+        }
+      }
+    }
+  } catch { /**/ }
+
+  return [];
+};
+
 export const createPageMap = (includePageId: boolean, pages: readonly IPage[]) => {
   const map = pages.reduce<Map<string, string>>(
     (acc, i) => {
-      const name = toSafeFileName(i.title);
+      const name = i.title;
 
-      // Nothing usable in the title - leave it unmapped so the lookup below
-      // falls back to the model's own `<pageId>.js` name.
       if (name === '') {
         return acc;
       }
@@ -97,11 +95,8 @@ export const findDuplicate = (pages: readonly IPage[]): IPage | undefined => {
   const seen = new Set<string>();
 
   return pages.find((page) => {
-    // Compare the names the files will actually get, not the raw titles:
-    // two different titles can be sanitized down to the same file name.
-    const name = toSafeFileName(page.title).toLowerCase();
+    const name = page.title.toLowerCase();
 
-    // An unusable title falls back to the page ID, which is always unique.
     if (name === '') {
       return false;
     }

@@ -49,16 +49,16 @@ test('findDuplicate returns the duplicate if it is not the first element', () =>
 
 test('findDuplicate returns titles that collide once sanitized', () => {
   const pages: IPage[] = [
-    { id: '1', title: 'edit: office' },
+    { id: '1', title: 'edit- office' },
     { id: '2', title: 'edit- office' },
   ];
   strictEqual(findDuplicate(pages), pages[1]);
 });
 
-test('findDuplicate ignores unusable titles, which fall back to the page ID', () => {
+test('findDuplicate accepts distinct page ID fallbacks', () => {
   const pages: IPage[] = [
     { id: '1', title: '' },
-    { id: '2', title: '   ' },
+    { id: '2', title: '' },
     { id: '3', title: 'Home' },
   ];
   strictEqual(findDuplicate(pages), undefined);

@@ -6,7 +6,7 @@ import type { IPage } from '../../src/types.ts';
 
 const pages: IPage[] = [
   { id: 'sof6z', title: 'Home' },
-  { id: 'ay6yh', title: 'edit: office' },
+  { id: 'ay6yh', title: 'edit- office' },
   { id: 'kt3n1', title: '' },
 ];
 
@@ -23,7 +23,7 @@ describe('createPageMap', () => {
     strictEqual(getPageName('/public/pages/sof6z.js'), 'Home.js');
   });
 
-  it('should sanitize a title that cannot be used in a file name', () => {
+  it('should use the sanitized page title', () => {
     strictEqual(
       createPageMap(true, pages)('/public/pages/ay6yh.js'),
       'edit- office.ay6yh.js',
