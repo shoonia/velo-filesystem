@@ -36,11 +36,6 @@ export const downloadFiles = async ({ includePageId }: IState): Promise<void> =>
   const tasks: Promise<void>[] = [];
   const errors: string[] = [];
 
-  /**
-   * A failed write must not take the whole download down with it, but it must
-   * not pass unnoticed either: `getFileHandle()` rejects before the file is
-   * opened, so the stale copy on disk survives and looks freshly downloaded.
-   */
   const write = (dir: Directory, name: string, value: string): void => {
     tasks.push(
       dir.writeFile(name, value).catch((error: unknown) => {
