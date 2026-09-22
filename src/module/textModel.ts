@@ -7,24 +7,13 @@ export const getModels = (): readonly editor.ITextModel[] => {
   return modules.filter((i) => i.uri.path.indexOf('@') === -1);
 };
 
-/**
- * Characters that are not allowed in a file name. The File System Access API
- * rejects a path component containing any of these, so a page title that has
- * one cannot be used verbatim.
- */
 // eslint-disable-next-line no-control-regex -- these are the characters to strip
 const UNSAFE_CHARS = /[<>:"/\\|?*\u0000-\u001F]/g;
-
 /** Leading/trailing dots and whitespace are also rejected. */
 const UNSAFE_EDGES = /^[\s.]+|[\s.]+$/g;
-
 /** Reserved device names on Windows, which stay reserved with an extension. */
 const RESERVED_NAME = /^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])$/i;
 
-/**
- * Convert a page title into a usable file name. Returns an empty string when
- * nothing usable is left, so the caller can fall back to the page ID.
- */
 export const toSafeFileName = (title: string): string => {
   const name = title
     .replaceAll(UNSAFE_CHARS, '-')
